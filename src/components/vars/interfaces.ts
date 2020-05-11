@@ -57,11 +57,6 @@ interface ApiParams {
     [x: string]: unknown;
 }
 
-interface ScrollParams {
-    event: any;
-    postProps?: PartialProps;
-}
-
 interface LoadThreshold {
     top: number;
     bottom: number;
@@ -143,4 +138,4 @@ interface PartialState {
     [x: string]: any;
 }
 
-export {Flags, Boundaries, ApiResults, ApiResult, Props, State, PartialState, ApiParams, ScrollParams};
+export {Flags, Boundaries, ApiResults, ApiResult, Props, State, PartialState, ApiParams};

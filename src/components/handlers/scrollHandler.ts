@@ -1,8 +1,8 @@
-import {Props, ScrollParams, State} from '../vars/interfaces';
+import {Props, PartialState} from '../vars/interfaces';
 import {directions} from '../vars/defaults';
 
 const scrollHandler: (s, p, o) => Record<string, unknown> | null =
-    (state: State, props: Props, event: any) => {
+    (state: PartialState, props: Props, event: any) => {
         const {flags: {endOfResults, beginningOfResults}} = state;
         const {loadThreshold} = props;
         const {target} = event;
