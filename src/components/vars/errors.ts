@@ -27,7 +27,7 @@ const errors: Record<string, any> = {
         notValidStartBoundary: (start: any) => `Invalid start boundary from api: should return a Number, got ${start.constructor.name}.`,
         notValidEndBoundary: (end: any) => `Invalid end boundary from api: should return a Number, got ${end.constructor.name}.`,
 
-        notValidTuple: (tuple: any) => `Invalid tuple returned from api in queryResults: expect only Objects or null, got ${tuple.constructor.name}.`,
+        notValidTuple: (tuple: any) => `Invalid tuple returned from api in queryResults: expect only Objects, got ${tuple == null ? 'null' : tuple.constructor.name}.`,
         noTupleKey: 'Missing tuple key: each tuple returned from api should contain an unique key attribute.'
     }
 };

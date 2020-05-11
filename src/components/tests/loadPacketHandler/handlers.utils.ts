@@ -132,6 +132,11 @@ const wrongApiResponses = [
         'should reject response when tuple with no key',
         {boundaries: {start: 0, end: 0}, flags: {endOfResults: false}, queryResults: [{}]},
         errors.apiResults.noTupleKey
+    ],
+    [
+        'should reject response when tuple is null',
+        {boundaries: {start: 0, end: 0}, flags: {endOfResults: false}, queryResults: [null, {key: 1}]},
+        errors.apiResults.notValidTuple(null)
     ]
 ];
 

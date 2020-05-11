@@ -50,10 +50,10 @@ const checkApiReturn: (a) => Promise<ApiResults> = (apiResults: any) => new Prom
                      * Each tuple should be an Object that contains an unique key attribute.
                      */
                     for (const tuple of apiResults.queryResults) {
-                        if (tuple != null && tuple.constructor !== Object) {
+                        if (tuple == null || tuple.constructor !== Object) {
                             reject(new Error(errors.apiResults.notValidTuple(tuple)));
                             break;
-                        } else if (tuple != null && tuple.key == null) {
+                        } else if (tuple.key == null) {
                             reject(new Error(errors.apiResults.noTupleKey));
                             break;
                         }
