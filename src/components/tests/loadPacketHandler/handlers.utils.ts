@@ -8,7 +8,6 @@ const state: State = {
     boundaries: {start: 0, end: 0},
     error: null,
     loading: false,
-    queryParams: {},
     empty: false,
     launched: false
 };

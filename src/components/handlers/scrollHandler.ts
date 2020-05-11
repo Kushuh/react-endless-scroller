@@ -1,7 +1,7 @@
 import {PartialProps, PartialState} from '../vars/interfaces';
 import {directions} from '../vars/defaults';
 
-const scrollHandler: (s, p, o) => Record<string, unknown> | null =
+const scrollHandler: (s, p, o) => string | null =
     (state: PartialState, props: PartialProps, event: any) => {
         const {flags: {endOfResults, beginningOfResults}} = state;
         const {loadThreshold} = props;
@@ -13,10 +13,9 @@ const scrollHandler: (s, p, o) => Record<string, unknown> | null =
             target.scrollTop >= (target.scrollHeight - target.offsetHeight - threshold.bottom) &&
             !endOfResults
         ) {
-            return({loading: true, direction: directions.forward});
-            // Top reached
+            return directions.forward;
         } else if (target.scrollTop <= threshold.top && !beginningOfResults) {
-            return({loading: true, direction: directions.backward});
+            return directions.backward;
         } else {
             return null;
         }

@@ -78,7 +78,7 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
     mutateState: (params) => Promise<void> = (params?: PartialState) => setStateAsync(this, params || defaultState);
 
     /**
-     * Reset tiles and reload the wall according to some new queryParams.
+     * Reset tiles and reload the wall.
      */
     search: () => Promise<void> = () => new Promise(async resolve => {
         await this.mutateState(null);
@@ -165,10 +165,9 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
     /**
      * Trigger a fetch to dataset automatically when user is about to reach the end of available data to scroll.
      *
-     * @param event
-     * @param postProps
+     * @param event"
      */
-    onScroll: (event) => void = (event: any) => {
+    onScroll: (event) => void = async (event: any) => {
         /**
          * The guard clause prevents multiple fetches at time.
          */
@@ -177,15 +176,12 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
              * scrollHandler analyze the current DOM page situation, and if a fetch is needed, returns the correct state
              * parameters for the api call.
              */
-            const res = scrollHandler(this.state, this.props, event);
+            const direction = scrollHandler(this.state, this.props, event);
 
-            if (res != null) {
+            if (direction != null) {
                 this.lockScrollAction = true;
-                const {direction, ...state} = res;
-                setStateAsync(this, state)
-                    .then( () => this.loadPacket(direction, {current: event.target}) )
-                    .then( () => this.lockScrollAction = false )
-                    .catch( this.errorHandler );
+                await this.loadPacket(direction, {current: event.target}).catch( this.errorHandler );
+                this.lockScrollAction = false;
             }
         }
     };
