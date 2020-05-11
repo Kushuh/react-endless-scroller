@@ -21,6 +21,7 @@ It comes in two components : a high level one, with some pre-built visual handle
         + [endlessScroll.insertTuples](#endlessscrollinserttuples)
         + [endlessScroll.onScroll](#endlessscrollonscroll)
         + [endlessScroll.search](#endlessscrollsearch)
++ **[Copyright](#copyright)**
 
 ## EndlessScrollHandler (low level)
 
@@ -254,3 +255,6 @@ Search function. A search will reset the component state (mutateState with empty
 ```jsx
 search();
 ```
+
+## Copyright
+2020 Kushuh - MIT license
