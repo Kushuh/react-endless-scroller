@@ -153,7 +153,7 @@ The component will handle the network calls, based on the current scroll positio
 **(4)** By default, the component will wait for the user to scroll to one of the page limits to trigger fetch (either backward or forward). However, for a smoother user experience, and a better "infinite" sensation, it is advised to add larger thresholds. Thus, fetch will be called earlier and lower the "wait for load" impression.<br/>
 Larger thresholds means new content will always be loaded before user reach the limit, until none is left.
 
-**(5)** Boundaries, flags and results can be overridden.
+**(5)** Boundaries, flags, results, error, loading, empty, launched can be overridden.
 
 ### Outputs (props)
 

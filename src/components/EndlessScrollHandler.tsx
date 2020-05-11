@@ -49,11 +49,11 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
         results: (this.props.initialProps || {}).results || [],
         flags: Object.assign({beginningOfResults: true, endOfResults: false}, (this.props.initialProps || {}).flags || {}),
         boundaries: Object.assign({start: 0, end: 0}, (this.props.initialProps || {}).boundaries || {}),
-        error: null,
-        loading: false,
+        error: (this.props.initialProps || {}).error,
+        loading: (this.props.initialProps || {}).loading || false,
         queryParams: this.props.queryParams || {},
-        empty: false,
-        launched: false
+        empty: (this.props.initialProps || {}).empty || false,
+        launched: (this.props.initialProps || {}).launched || false
     };
 
     /**
