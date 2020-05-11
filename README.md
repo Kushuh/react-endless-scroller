@@ -27,6 +27,8 @@ It comes in two components : a high level one, with some pre-built visual handle
 
 ### Minimal example
 
+For how to build the backendApi, please refer to <a href="https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md">this specsheet</a>.
+
 *Wrapper.jsx*
 ```jsx
 import React from 'react';
@@ -61,7 +63,11 @@ const Container = ({endlessScroll, ...props}) => {
 
       {/* This div should scroll on overflow */}
       <div onScroll={endlessScroll.onScroll}>
-        {endlessScroll.results.map(({key, ...tuple}) => <Tuple id={key} key={key} {...tuple}/>)}
+        {endlessScroll.results.map(
+          // Each result should contain a unique key attribute and use it 
+          // as an id. The key attribute is hidden by React.
+          ({key, ...tuple}) => <Tuple id={key} key={key} {...tuple}/>)
+        }
       </div>
     </div>
   );
