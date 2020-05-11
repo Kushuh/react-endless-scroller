@@ -45,7 +45,7 @@ interface ApiResult {
 }
 
 /**
- * Refer to [specsheet] for more details.
+ * Refer to https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md for more details.
  */
 interface ApiParams {
     start: number;
@@ -65,7 +65,7 @@ interface LoadThreshold {
 
 /**
  * @property {function | Promise} api - fetch function to dynamically load data. It has to comply to
- * [specsheet] requirements.
+ * https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md requirements.
  * @property {object=} initialProps - override some default state props
  * @property {object=} queryParams - optional query parameters to pass to the api.
  * @property {boolean=} deferLaunch - cancel the automatic load of the first dataset, and wait for user to manually

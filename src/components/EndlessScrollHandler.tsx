@@ -12,7 +12,7 @@ import insertHandler from './handlers/insertHandler';
  * For an easier and more generic declaration, please refer to the <EndlessScroll/> component.
  *
  * This component is meant to work with a specific API. You can either use the prebuilt Go/Couchbase Api from [bucket],
- * or build your own according to this [spec sheet].
+ * or build your own according to this spec sheet : https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md.
  */
 class EndlessScrollHandler extends React.Component<Props, PartialState> {
     lockScrollAction = false;
