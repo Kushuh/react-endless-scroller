@@ -63,12 +63,14 @@ const Container = ({endlessScroll, ...props}) => {
 
       {/* This div should scroll on overflow */}
       <div onScroll={endlessScroll.onScroll}>
+
         {endlessScroll.params.results.map(
           // Each result should contain a unique key attribute and use it 
           // as an id. The key attribute is reserved by React, and should
           // also be declared here.
           ({key, ...tuple}) => <Tuple id={key} key={key} {...tuple}/>)
         }
+
       </div>
     </div>
   );
