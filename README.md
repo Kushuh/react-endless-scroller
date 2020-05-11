@@ -106,7 +106,7 @@ const Wrapper = () => {
       }}
       queryParams={{
         search: 'blue jeans',
-        filter: {price: [15 - 50]}
+        filter: {price: [15, 50]}
       }}
       postLoadAction={result => {
         console.log('fetch successful !', result.flags.endOfResults);
