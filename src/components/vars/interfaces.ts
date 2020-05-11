@@ -138,4 +138,4 @@ interface PartialState {
     [x: string]: any;
 }
 
-export {Flags, Boundaries, ApiResults, ApiResult, Props, State, PartialState, ApiParams};
+export {Flags, Boundaries, ApiResults, ApiResult, Props, PartialProps, State, PartialState, ApiParams};
