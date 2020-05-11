@@ -94,7 +94,7 @@ interface Props {
     children?: React.ReactChildren,
     api: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
-    queryParams?: object;
+    queryParams?: Record<string, any>;
     deferLaunch?: boolean;
     errorHandler?: Function;
     bypassLoadSize?: boolean;
@@ -110,7 +110,7 @@ interface PartialProps {
     children?: React.ReactChildren,
     api?: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
-    queryParams?: object;
+    queryParams?: Record<string, any>;
     deferLaunch?: boolean;
     errorHandler?: Function;
     bypassLoadSize?: boolean;
@@ -128,7 +128,6 @@ interface State {
     boundaries: Boundaries;
     error: object | null;
     loading: boolean;
-    queryParams: object;
     empty: boolean;
     launched: boolean;
 }
@@ -139,7 +138,6 @@ interface PartialState {
     boundaries?: Boundaries;
     error?: object | null;
     loading?: boolean;
-    queryParams?: object;
     empty?: boolean;
     launched?: boolean;
     [x: string]: any;

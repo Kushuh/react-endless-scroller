@@ -16,7 +16,6 @@ It comes in two components : a high level one, with some pre-built visual handle
     + [Outputs (props)](#outputs-props)
         + [endlessScroll.params](#endlessscrollparams)
         + [⚠️ endlessScroll.mutateState](#-endlessscrollmutatestate)
-        + [endlessScroll.updateQueryParams](#endlessscrollupdatequeryparams)
         + [endlessScroll.removeTuples](#endlessscrollremovetuples)
         + [endlessScroll.insertTuples](#endlessscrollinserttuples)
         + [endlessScroll.onScroll](#endlessscrollonscroll)
@@ -174,7 +173,6 @@ A snapshot of the current component state.
 | loading | boolean | Set to true if a fetch operation is ongoing. |
 | empty | boolean | Set to true if no results were returned, and both beginningOfResults and endOfResults have been set to true. |
 | launched | boolean | Set to true once the component has trigger a successful fetch. |
-| queryParams | object | See [props](#inputs). |
 
 **(1)** Each tuple is an object, that has to contain at least a unique key attribute.
 
@@ -210,15 +208,7 @@ Above are the parameters of the default state. Any absent parameter will remain 
 }
 ```
 
-⚠️ This function has minimal guard control and can lead to unwanted behaviors. If you just need to update queryParams, please refer to the updateQueryParams prop above.
-
-#### endlessScroll.updateQueryParams
-
-Update query parameters for the api.
-
-```jsx
-updateQueryParams(someParams);
-```
+⚠️ This function has minimal guard control and can lead to unwanted behaviors.
 
 #### endlessScroll.removeTuples
 
@@ -257,6 +247,7 @@ onScroll(event);
 Search function. A search will reset the component state (mutateState with empty parameters), then repopulate tuples with an updated fetch.
 
 ```jsx
+// Takes no parameters.
 search();
 ```
 

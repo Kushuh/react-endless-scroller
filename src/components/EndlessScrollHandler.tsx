@@ -34,7 +34,6 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param {object} error
      * @param {boolean} loading
      * @param {boolean} empty
-     * @param {object} queryParams - optional queryParams relative to the api in use
      *
      *
      * (1) Unless specified otherwise, the component load results from start. Thus, beginningOfResults flag is set to
@@ -51,7 +50,6 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
         boundaries: Object.assign({start: 0, end: 0}, (this.props.initialProps || {}).boundaries || {}),
         error: (this.props.initialProps || {}).error,
         loading: (this.props.initialProps || {}).loading || false,
-        queryParams: this.props.queryParams || {},
         empty: (this.props.initialProps || {}).empty || false,
         launched: (this.props.initialProps || {}).launched || false
     };
@@ -78,15 +76,6 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param params
      */
     mutateState: (params) => Promise<void> = (params?: PartialState) => setStateAsync(this, params || defaultState);
-
-    /**
-     * Use this to update state from a search interface. queryParams depends on the api you are using, and are totally
-     * optional.
-     *
-     * @param queryParams
-     */
-    updateQueryParams: (queryParams) => Promise<void> =
-        (queryParams?: object) => setStateAsync(this, {queryParams: queryParams || {}});
 
     /**
      * Reset tiles and reload the wall according to some new queryParams.
@@ -241,7 +230,6 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
             {
                 endlessScroll: {
                     mutateState: this.mutateState,
-                    updateQueryParams: this.updateQueryParams,
                     removeTuples: this.removeTuples,
                     insertTuples: this.insertTuples,
                     onScroll: this.onScroll,

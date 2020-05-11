@@ -81,7 +81,7 @@ const checkApiReturn: (a) => Promise<ApiResults> = (apiResults: any) => new Prom
 const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
     (direction: string, state: State, props: Props) => new Promise(
         (resolve, reject) => {
-            let {packetSize, loadSize, inRushLoad, inRushLoadSize} = props;
+            let {queryParams, packetSize, loadSize, inRushLoad, inRushLoadSize} = props;
             const {api, bypassLoadSize} = props;
 
             /**
@@ -120,7 +120,7 @@ const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
             /**
              * No need for validation since it has already been done.
              */
-            const {queryParams, boundaries, results, flags} = state;
+            const {boundaries, results, flags} = state;
             /**
              * If inRushLoad flag is set, first load can load a specific amount of data.
              */
