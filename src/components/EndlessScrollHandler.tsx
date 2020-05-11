@@ -34,6 +34,7 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param {object} error
      * @param {boolean} loading
      * @param {boolean} empty
+     * @param {boolean} launched
      *
      *
      * (1) Unless specified otherwise, the component load results from start. Thus, beginningOfResults flag is set to
