@@ -131,11 +131,11 @@ The component will handle the network calls, based on the current scroll positio
 | key | type | required | default | description |
 | :---: | :---: | :---: | :---: | :--- |
 | api | (object) => Promise\<object\> | true | undefined | The api has to comply with the <a href="https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md">component Api Specsheet</a>.<br />The api should use an index based pagination. |
-| packetSize | number<br />1 < n < 1000 | false | 30 | The maximum number of tuples to load on each fetch. |
-| loadSize | number<br />3 < n < 10 000 | false | 120 | The maximum number of tuples to keep in the DOM.**(1)** |
+| packetSize | number<br />1 < n | false | 30 | The maximum number of tuples to load on each fetch. |
+| loadSize | number<br />3 < n | false | 120 | The maximum number of tuples to keep in the DOM.**(1)** |
 | ⚠️ bypassLoadSize | boolean | false | false | Disable the content limit to load in the DOM.**(2)** |
 | inRushLoad | boolean | false | true | Force bigger loads when their is not enough content on the wall. |
-| inRushLoadSize | number<br/>1 < n < 5000 | false | 60 | When inRushLoad is active, determine the amount of data to load instead of packetSize. |
+| inRushLoadSize | number<br/>1 < n | false | 60 | When inRushLoad is active, determine the amount of data to load instead of packetSize. |
 | deferLaunch | boolean | false | false | Disable the initial fetch launched by the component when mounted.**(3)** |
 | loadThreshold.top | number<br/> 0 <= n | false | 1 | Distance in pixel from top, when a new backward fetch has to be triggered.**(4)** |
 | loadThreshold.bottom | number<br/> 0 <= n | false | 1 | Distance in pixel from bottom, when a new forward fetch has to be triggered.**(4)** |

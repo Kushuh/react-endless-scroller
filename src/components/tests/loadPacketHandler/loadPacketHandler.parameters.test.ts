@@ -341,33 +341,6 @@ describe(
                         await loadPacketHandler(
                             directions.forward,
                             state,
-                            {api: simulator(0, dataset), packetSize: 3000}
-                        );
-                    } catch (e) {
-                        error = e;
-                        status = 1;
-                    }
-
-                    expect(status).toBe(1);
-                    expect(error).toEqual(new Error(errors.packetSize.tooLarge(3000)));
-
-                    status = 0;
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
-                            {api: simulator(0, dataset), packetSize: 1000}
-                        );
-                    } catch (e) {
-                        status = 1;
-                    }
-
-                    expect(status).toBe(0);
-
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
                             {api: simulator(0, dataset), packetSize: 1}
                         );
                     } catch (e) {
@@ -399,21 +372,6 @@ describe(
                         await loadPacketHandler(
                             directions.forward,
                             state,
-                            {api: simulator(0, dataset), loadSize: 30000}
-                        );
-                    } catch (e) {
-                        error = e;
-                        status = 1;
-                    }
-
-                    expect(status).toBe(1);
-                    expect(error).toEqual(new Error(errors.loadSize.tooLarge(30000)));
-
-                    status = 0;
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
                             {api: simulator(0, dataset), loadSize: 15}
                         );
                     } catch (e) {
@@ -425,18 +383,6 @@ describe(
                     expect(error).toEqual(new Error(errors.loadSize.noLessThanPacketSize(15, 30)));
 
                     status = 0;
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
-                            {api: simulator(0, dataset), loadSize: 10000}
-                        );
-                    } catch (e) {
-                        status = 1;
-                    }
-
-                    expect(status).toBe(0);
-
                     try {
                         await loadPacketHandler(
                             directions.forward,
@@ -472,34 +418,7 @@ describe(
                         await loadPacketHandler(
                             directions.forward,
                             state,
-                            {api: simulator(0, dataset), inRushLoadSize: 6000}
-                        );
-                    } catch (e) {
-                        error = e;
-                        status = 1;
-                    }
-
-                    expect(status).toBe(1);
-                    expect(error).toEqual(new Error(errors.inRushLoadSize.tooLarge(6000)));
-
-                    status = 0;
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
                             {api: simulator(0, dataset), inRushLoadSize: 1}
-                        );
-                    } catch (e) {
-                        status = 1;
-                    }
-
-                    expect(status).toBe(0);
-
-                    try {
-                        await loadPacketHandler(
-                            directions.forward,
-                            state,
-                            {api: simulator(0, dataset), inRushLoadSize: 5000}
                         );
                     } catch (e) {
                         status = 1;

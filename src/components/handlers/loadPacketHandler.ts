@@ -93,18 +93,13 @@ const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
             loadSize = loadSize == null ? packetSize * 4 : loadSize;
 
             /**
-             * loadSize and packet Size are restricted for performance and security reasons. Though loadSize can be
-             * bypassed, their is no way to do so with the packetSize.
+             * Minimum sizes are required for the component to work.
              */
-            if (packetSize > defaultProps.maxPacketSize) {
-                reject(new Error(errors.packetSize.tooLarge(packetSize)));
-            } else if (packetSize < defaultProps.minPacketSize) {
+            if (packetSize < defaultProps.minPacketSize) {
                 reject(new Error(errors.packetSize.tooSmall(packetSize)));
             }
 
-            if (loadSize > defaultProps.maxLoadSize) {
-                reject(new Error(errors.loadSize.tooLarge(loadSize)));
-            } else if (loadSize < defaultProps.minLoadSize && !bypassLoadSize) {
+            if (loadSize < defaultProps.minLoadSize && !bypassLoadSize) {
                 reject(new Error(errors.loadSize.tooSmall(loadSize)));
             }
 
@@ -118,9 +113,7 @@ const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
             inRushLoad = inRushLoad == null ? true : inRushLoad;
             inRushLoadSize = inRushLoadSize == null ? Math.floor(loadSize / 2) : inRushLoadSize;
 
-            if (inRushLoadSize > defaultProps.maxInRushLoadSize) {
-                reject(new Error(errors.inRushLoadSize.tooLarge(inRushLoadSize)));
-            } else if (inRushLoadSize < defaultProps.minInRushLoadSize) {
+            if (inRushLoadSize < defaultProps.minInRushLoadSize) {
                 reject(new Error(errors.inRushLoadSize.tooSmall(inRushLoadSize)));
             }
 

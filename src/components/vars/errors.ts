@@ -2,16 +2,13 @@ import {defaultProps} from './defaults';
 
 const errors: Record<string, any> = {
     packetSize: {
-        tooLarge: (packetSize: number) => `packetSize parameter exceed ${defaultProps.maxPacketSize} limit (currently ${packetSize}).`,
         tooSmall: (packetSize: number) => `packetSize parameter is under ${defaultProps.minPacketSize} limit (currently ${packetSize}).`
     },
     loadSize: {
-        tooLarge: (loadSize: number) => `loadSize parameter exceed ${defaultProps.maxLoadSize} limit (currently ${loadSize}).`,
         tooSmall: (loadSize: number) => `loadSize parameter is under ${defaultProps.minLoadSize} limit (currently ${loadSize}).`,
         noLessThanPacketSize: (loadSize: number, packetSize: number) => `loadSize (${loadSize}) cannot be less than 150% of packetSize (${packetSize}). Please set it at least to ${Math.ceil(1.5 * packetSize)}.`
     },
     inRushLoadSize: {
-        tooLarge: (inRushLoadSize: number) => `inRushLoadSize parameter exceed ${defaultProps.maxInRushLoadSize} limit (currently ${inRushLoadSize}).`,
         tooSmall: (inRushLoadSize: number) => `inRushLoadSize parameter is under ${defaultProps.minInRushLoadSize} limit (currently ${inRushLoadSize}).`
     },
     apiResults: {

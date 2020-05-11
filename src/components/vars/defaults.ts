@@ -28,24 +28,18 @@ const directions: Directions = {
 
 interface DefaultProps {
     packetSize: number;
-    maxPacketSize: number;
     minPacketSize: number;
     loadSize: number;
-    maxLoadSize: number;
     minLoadSize: number;
     minInRushLoadSize: number;
-    maxInRushLoadSize: number;
 }
 
 const defaultProps: DefaultProps = {
     packetSize: 30,
-    maxPacketSize: 1000,
     minPacketSize: 1,
     loadSize: 120,
-    maxLoadSize: 10000,
     minLoadSize: 3,
-    minInRushLoadSize: 1,
-    maxInRushLoadSize: 5000
+    minInRushLoadSize: 1
 }
 
 export {defaultState, directions, defaultProps};
