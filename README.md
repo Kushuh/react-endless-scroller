@@ -4,7 +4,7 @@
 
 React Endless Scroller is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
 
-It comes in two components : a high level one, with some pre-built visual handlers, and a more low level one, for deeper control and customization.
+It comes in two components : a high level one, with some pre-built visual handlers, and a more low level one, for deeper integration and customization.
 
 ## Components
 
@@ -17,8 +17,8 @@ It comes in two components : a high level one, with some pre-built visual handle
         + [endlessScroll.params](#endlessscrollparams)
         + [⚠️ endlessScroll.mutateState](#-endlessscrollmutatestate)
         + [endlessScroll.updateQueryParams](#endlessscrollupdatequeryparams)
-        + [endlessScroll.remove](#endlessscrollremove)
-        + [endlessScroll.insert](#endlessscrollinsert)
+        + [endlessScroll.removeTuples](#endlessscrollremovetuples)
+        + [endlessScroll.insertTuples](#endlessscrollinserttuples)
         + [endlessScroll.onScroll](#endlessscrollonscroll)
         + [endlessScroll.search](#endlessscrollsearch)
 
@@ -215,26 +215,26 @@ Update query parameters for the api.
 updateQueryParams(someParams);
 ```
 
-#### endlessScroll.remove
+#### endlessScroll.removeTuples
 
-Removes a list of tuple ids from the current list. Tuples are represented by their unique key attribute.
+Remove a list of tuple ids from the current list. Tuples are represented by their unique key attribute.
 
 ```jsx
 // scrollableElementRef is optional. If omitted, set it to false,
 // as the first parameter will automatically be attributed to it.
-remove(scrollableElementRef, tupleId1, tupleId2, ...);
+removeTuples(scrollableElementRef, tupleId1, tupleId2, ...);
 ```
 
 ℹ️ scrollableElementRef force a second refresh of the page status after the first fetch. It can be useful, for example, on very large screens, where a load doesn't always fill the whole window space, thus letting some room for an extra fetch.
 
-#### endlessScroll.insert
+#### endlessScroll.insertTuples
 
 Insert a list of tuples in the current list. New tuples have each to contain a unique key attribute.
 
 ```jsx
 // scrollableElementRef is optional. If omitted, set it to false,
 // as the first parameter will automatically be attributed to it.
-insert(scrollableElementRef, tuples, index);
+insertTuples(scrollableElementRef, tuples, index);
 ```
 
 ℹ️ insert takes an extra index attribute, to tell the component where to insert the new tuples.

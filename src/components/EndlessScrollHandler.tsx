@@ -207,7 +207,7 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param scrollElement
      * @param ids
      */
-    remove: (scrollElement, ...ids) => void = async (scrollElement: any | null, ...ids: Array<string>) => {
+    removeTuples: (scrollElement, ...ids) => void = async (scrollElement: any | null, ...ids: Array<string>) => {
         await setStateAsync(this, removeHandler(ids, this.state));
         if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
     };
@@ -219,7 +219,7 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param tuples
      * @param index
      */
-    insert: (scrollElement, tuples, index) => void =
+    insertTuples: (scrollElement, tuples, index) => void =
         async (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => {
             await setStateAsync(this, insertHandler(tuples, this.state, index));
             if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
@@ -242,8 +242,8 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
                 endlessScroll: {
                     mutateState: this.mutateState,
                     updateQueryParams: this.updateQueryParams,
-                    remove: this.remove,
-                    insert: this.insert,
+                    removeTuples: this.removeTuples,
+                    insertTuples: this.insertTuples,
                     onScroll: this.onScroll,
                     search: this.search,
                     params: {...this.state}
