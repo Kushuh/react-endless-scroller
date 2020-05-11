@@ -3,7 +3,7 @@
 
 ## Before note
 
-This document is about building a server api function to feed the endless scroll element with content. Note you don't have to make your backend comply directly to this spec. It is possible to create a frontend connector, to convert I/O from your server to the component.
+This document is about building a server api to feed the endless scroller component with content. Note you don't have to make your backend comply directly to this spec. It is possible to create a frontend connector, to convert I/O from your server to the component.
 
 ## Database specifications
 
