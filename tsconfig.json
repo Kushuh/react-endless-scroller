@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "build",
+    "jsx": "react",
+    "noImplicitAny": false,
+    "removeComments": true,
+    "sourceMap": false,
+    "module": "es6",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "src"
+  },
+  "exclude": [
+    "node_modules/"
+  ],
+  "include": [
+    "src/*"
+  ]
+}
