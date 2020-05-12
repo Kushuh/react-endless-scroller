@@ -12,7 +12,7 @@ export default [
 		output: [
 			{
 				file: pkg.main,
-				format: 'es'
+				format: 'cjs'
 			}
 		],
 		external: [
