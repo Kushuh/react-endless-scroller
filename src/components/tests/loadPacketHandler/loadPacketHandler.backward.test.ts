@@ -1,4 +1,4 @@
-import {PartialState} from '../../vars/interfaces';
+import {PartialState} from '../../vars/handler.interfaces';
 import {describe, expect, it} from '@jest/globals';
 import {directions} from '../../vars/defaults';
 import loadPacketHandler from '../../handlers/loadPacketHandler';

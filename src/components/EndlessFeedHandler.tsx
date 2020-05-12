@@ -1,7 +1,7 @@
 import React from 'react';
 import {setStateAsync, addPropsToChildren} from 'kushuh-react-utils';
 import {defaultState, directions} from './vars/defaults';
-import {ApiResult, PartialState, Props, State} from './vars/interfaces';
+import {ApiResult, PartialState, Props, State} from './vars/handler.interfaces';
 import loadPacketHandler from './handlers/loadPacketHandler';
 import scrollHandler from './handlers/scrollHandler';
 import removeHandler from './handlers/removeHandler';

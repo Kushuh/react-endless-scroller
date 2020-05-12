@@ -1,4 +1,4 @@
-import {ApiResults} from '../../vars/interfaces';
+import {ApiResults} from '../../vars/handler.interfaces';
 import {describe, expect, it} from '@jest/globals';
 import {dataset, simulator} from './simulators';
 

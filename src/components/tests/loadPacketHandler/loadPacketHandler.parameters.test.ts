@@ -2,7 +2,7 @@ import {describe, it, expect} from '@jest/globals';
 import {directions} from '../../vars/defaults';
 import loadPacketHandler from '../../handlers/loadPacketHandler';
 import {dataset, simulator} from './simulators';
-import {PartialState} from '../../vars/interfaces';
+import {PartialState} from '../../vars/handler.interfaces';
 import {state, wrongApiResponses} from './handlers.utils';
 import errors from '../../vars/errors';
 

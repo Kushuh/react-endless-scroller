@@ -1,4 +1,4 @@
-import {ApiResults} from '../vars/interfaces';
+import {ApiResults} from '../vars/handler.interfaces';
 import errors from '../vars/errors';
 import tuplesValidator from "./tuplesValidator";
 

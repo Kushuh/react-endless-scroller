@@ -1,4 +1,4 @@
-import {Boundaries, PartialState, Props, State} from '../vars/interfaces';
+import {Boundaries, PartialState, Props, State} from '../vars/handler.interfaces';
 import {defaultProps, directions} from '../vars/defaults';
 import errors from '../vars/errors';
 

@@ -85,7 +85,7 @@ interface LoadThreshold {
  * through the threshold point, a distance in pixel from the actual limit of the scrollable element.
  */
 interface Props {
-    children?: React.ReactNode,
+    children?: React.ReactNode | React.ReactNodeArray,
     api: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
@@ -101,7 +101,7 @@ interface Props {
 }
 
 interface PartialProps {
-    children?: React.ReactNode,
+    children?: React.ReactNode | React.ReactNodeArray,
     api?: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
@@ -135,4 +135,16 @@ interface PartialState {
     [x: string]: any;
 }
 
-export {Flags, Boundaries, ApiResults, ApiResult, Props, PartialProps, State, PartialState, ApiParams};
+export {
+    Flags,
+    Boundaries,
+    ApiResults,
+    ApiResult,
+    Props,
+    PartialProps,
+    State,
+    PartialState,
+    LoadThreshold,
+    ApiParams,
+    Init
+};

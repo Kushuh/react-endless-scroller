@@ -1,4 +1,4 @@
-import {ApiResult, PartialState, State} from '../vars/interfaces';
+import {ApiResult, PartialState, State} from '../vars/handler.interfaces';
 
 const insertHandler: (newTuples, state, index) => PartialState =
     (newTuples: Array<ApiResult>, state: State, index: number) => {

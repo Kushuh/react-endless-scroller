@@ -1,4 +1,4 @@
-import {PartialState} from './interfaces';
+import {PartialState} from './handler.interfaces';
 
 const defaultState: PartialState = {
     tuples: [],
