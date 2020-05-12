@@ -1,2 +1,2 @@
-import FeedHandler from './components/FeedHandler';
-export {FeedHandler};
+import EndlessFeedHandler from './components/EndlessFeedHandler';
+export {EndlessFeedHandler};

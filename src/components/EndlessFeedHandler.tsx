@@ -16,12 +16,12 @@ if (isDevENV) {
 
 /**
  * Infinite scroll handler. Note this is the root components, which allows full control but is also slightly more tricky.
- * For an easier and more generic declaration, please refer to the <Feed/> components.
+ * For an easier and more generic declaration, please refer to the <EndlessFeed/> components.
  *
  * This components is meant to work with a specific API. You can either use the prebuilt Go/Couchbase Api from [bucket],
  * or build your own according to this spec sheet : https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md.
  */
-class FeedHandler extends React.Component<Props, PartialState> {
+class EndlessFeedHandler extends React.Component<Props, PartialState> {
     lockScrollAction = false;
     initialProps = this.props.initialProps || {};
 
@@ -298,4 +298,4 @@ class FeedHandler extends React.Component<Props, PartialState> {
     }
 }
 
-export default FeedHandler;
+export default EndlessFeedHandler;

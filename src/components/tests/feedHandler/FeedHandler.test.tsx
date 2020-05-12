@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import ChildSimulator from './ChildSimulator';
-import FeedHandler from '../../FeedHandler';
+import EndlessFeedHandler from '../../EndlessFeedHandler';
 import {simulator, dataset} from '../loadPacketHandler/simulators';
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -16,11 +16,11 @@ describe(
         let props = {};
 
         beforeEach(async () => {
-            mountSpy = jest.spyOn(FeedHandler.prototype, 'componentDidMount');
+            mountSpy = jest.spyOn(EndlessFeedHandler.prototype, 'componentDidMount');
             feed = await shallow(
-                <FeedHandler api={simulator(0, dataset)} {...props}>
+                <EndlessFeedHandler api={simulator(0, dataset)} {...props}>
                     <ChildSimulator foo='bar'/>
-                </FeedHandler>
+                </EndlessFeedHandler>
             );
         });
 

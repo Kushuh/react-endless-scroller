@@ -32,7 +32,7 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
                 const {tuples, flags, boundaries, loading, empty, launched, ...other} = initialProps;
 
                 for (const key of Object.keys(other)) {
-                    console.warn(`Unrecognized prop ${key} in initialProps for FeedHandler component. ` +
+                    console.warn(`Unrecognized prop ${key} in initialProps for EndlessFeedHandler component. ` +
                         'This key will be ignored.')
                 }
 
@@ -131,7 +131,7 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
                 const {top, bottom, ...other} = loadThreshold;
 
                 for (const key of Object.keys(other)) {
-                    console.warn(`Unrecognized prop ${key} in loadThreshold for FeedHandler component. ` +
+                    console.warn(`Unrecognized prop ${key} in loadThreshold for EndlessFeedHandler component. ` +
                         'This key will be ignored.')
                 }
 

@@ -1,14 +1,14 @@
-# React Feed
+# React Endless Feed
 
 ## About
 
-React Feed is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
+React Endless Feed is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
 
 It comes in two components : a high level one, with some pre-built visual handlers, and a more low level one, for deeper integration and customization.
 
 ## Components
 
-+ **[FeedHandler (low level)](#endlessscrollhandler-low-level)**
++ **[EndlessFeedHandler (low level)](#endlessscrollhandler-low-level)**
     + [Minimal example](#minimal-example)
     + [Full props example](#full-props-example)
     + [Overview](#overview)
@@ -22,7 +22,7 @@ It comes in two components : a high level one, with some pre-built visual handle
         + [feed.search](#endlessscrollsearch)
 + **[Copyright](#copyright)**
 
-## FeedHandler (low level)
+## EndlessFeedHandler (low level)
 
 ### Minimal example
 
@@ -38,9 +38,9 @@ const Wrapper = () => {
   //...
 
   return (
-    <FeedHandler api={backendApi}>
+    <EndlessFeedHandler api={backendApi}>
         <Container/>
-    </FeedHandler>
+    </EndlessFeedHandler>
   );
 };
 
@@ -85,7 +85,7 @@ const Wrapper = () => {
   //...
 
   return (
-    <FeedHandler
+    <EndlessFeedHandler
       api={backendApi}
       packetSize={30}
       loadSize={120}
@@ -112,7 +112,7 @@ const Wrapper = () => {
       }}
     >
         <Container/>
-    </FeedHandler>
+    </EndlessFeedHandler>
   );
 };
 
@@ -121,7 +121,7 @@ export default Wrapper;
 
 ### Overview
 
-The FeedHandler wraps a page component, and pass some useful props to it, to easily feed user with infinite content.
+The EndlessFeedHandler wraps a page component, and pass some useful props to it, to easily feed user with infinite content.
 
 The component will handle the network calls, based on the current scroll position in the scrollable element that handles the tuples.
 
