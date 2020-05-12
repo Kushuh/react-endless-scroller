@@ -1,5 +1,37 @@
 # React Endless Feed
 
+<h6 align="center">About</h6>
+<p align="center">
+    <a href="https://github.com/Kushuh/react-endless-scroller">
+        <img src="https://img.shields.io/npm/v/react-endless-scroller" alt="version"/>
+    </a>
+    <a href="https://github.com/Kushuh/react-endless-scroller/blob/master/LICENSE">
+        <img src="https://img.shields.io/npm/l/react-endless-scroller" alt="license"/>
+    </a>
+    <a href="https://github.com/Kushuh/react-endless-scroller/issues">
+        <img src="https://img.shields.io/github/issues-raw/kushuh/react-endless-scroller" alt="open issues"/>
+    </a>
+    <a href="https://github.com/Kushuh/react-endless-scroller">
+        <img src="https://img.shields.io/github/last-commit/Kushuh/react-endless-scroller" alt="activity"/>
+    </a>
+    <a href="https://github.com/Kushuh/react-endless-scroller/graphs/contributors">
+        <img src="https://img.shields.io/github/contributors/Kushuh/react-endless-scroller" alt="contributors"/>
+    </a>
+</p>
+
+<h6 align="center">More</h6>
+<p align="center">
+    <a href="https://github.com/Kushuh/react-endless-scroller">
+        <img src="https://img.shields.io/github/repo-size/kushuh/react-endless-scroller" alt="repo size"/>
+    </a>
+    <a href="https://github.com/facebook/react">
+        <img src="https://img.shields.io/github/package-json/dependency-version/Kushuh/react-endless-scroller/react" alt="react version"/>
+    </a>
+    <a href="https://github.com/Kushuh/kushuh-react-utils">
+        <img src="https://img.shields.io/github/package-json/dependency-version/Kushuh/react-endless-scroller/kushuh-react-utils" alt="react version"/>
+    </a>
+</p>
+
 ## About
 
 React Endless Feed is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
