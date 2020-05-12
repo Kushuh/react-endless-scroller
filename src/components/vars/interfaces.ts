@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 /**
- * Inform the component about the current request status.
+ * Inform the components about the current request status.
  */
 interface Flags {
     beginningOfResults?: boolean;
@@ -9,7 +9,7 @@ interface Flags {
 }
 
 /**
- * Inform the component about the current request position.
+ * Inform the components about the current request position.
  */
 interface Boundaries {
     start?: number;

@@ -15,13 +15,13 @@ if (isDevENV) {
 }
 
 /**
- * Infinite scroll handler. Note this is the root component, which allows full control but is also slightly more tricky.
- * For an easier and more generic declaration, please refer to the <EndlessScroll/> component.
+ * Infinite scroll handler. Note this is the root components, which allows full control but is also slightly more tricky.
+ * For an easier and more generic declaration, please refer to the <Feed/> components.
  *
- * This component is meant to work with a specific API. You can either use the prebuilt Go/Couchbase Api from [bucket],
+ * This components is meant to work with a specific API. You can either use the prebuilt Go/Couchbase Api from [bucket],
  * or build your own according to this spec sheet : https://github.com/Kushuh/react-endless-scroller/blob/master/APISPECSHEET.md.
  */
-class EndlessScrollHandler extends React.Component<Props, PartialState> {
+class FeedHandler extends React.Component<Props, PartialState> {
     lockScrollAction = false;
     initialProps = this.props.initialProps || {};
 
@@ -73,17 +73,17 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      * @param {object{
      *     @param {boolean} beginningOfResults - no tuples left above
      *     @param {boolean} endOfResults - no tuples left below
-     * }} flags - inform the component about the current request status(1)
+     * }} flags - inform the components about the current request status(1)
      * @param {object{
      *     @param {number} start - offset from start
      *     @param {number} end - offset from end
-     * }} boundaries - inform the component about the current request position(2)
+     * }} boundaries - inform the components about the current request position(2)
      * @param {boolean} loading
      * @param {boolean} empty
      * @param {boolean} launched
      *
      *
-     * (1) Unless specified otherwise, the component load tuples from start. Thus, beginningOfResults flag is set to
+     * (1) Unless specified otherwise, the components load tuples from start. Thus, beginningOfResults flag is set to
      * true. Since they may be some data to load, endOfResults is set to false. If the dataset doesn't contain any, or
      * even enough tuples, then the first load will instantly set the second flag to true. If no tuples are returned
      * from first load, an additional empty flag will be set to true.
@@ -285,7 +285,7 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
         return addPropsToChildren(
             children,
             {
-                endlessScroll: {
+                feed: {
                     mutateState: this.mutateState,
                     removeTuples: this.removeTuples,
                     insertTuples: this.insertTuples,
@@ -298,4 +298,4 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
     }
 }
 
-export default EndlessScrollHandler;
+export default FeedHandler;

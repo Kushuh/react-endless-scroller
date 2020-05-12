@@ -1,5 +1,5 @@
 {
-  "name": "react-endless-scroller",
+  "name": "react-feed",
   "license": "MIT",
   "type": "module",
   "author": {
@@ -7,7 +7,7 @@
     "name": "Kushuh",
     "url": "https://github.com/kushuh"
   },
-  "description": "An infinite scroll component for React.",
+  "description": "A simple and intuitive infinite scroll component for React.",
   "version": "1.1.0",
   "private": false,
   "dependencies": {
@@ -46,6 +46,7 @@
       "last 1 safari version"
     ]
   },
+  "keywords": ["infinite", "infinite-scroll", "react", "reactjs", "endless", "endless-scroll", "infinite-scroller", "endless-scroller", "intuitive", "simple", "feed", "newsfeed", "efficient"],
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",

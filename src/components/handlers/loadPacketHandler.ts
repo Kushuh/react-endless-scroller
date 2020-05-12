@@ -31,7 +31,7 @@ const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
             loadSize = loadSize == null ? packetSize * 4 : loadSize;
 
             /**
-             * Minimum sizes are required for the component to work.
+             * Minimum sizes are required for the components to work.
              */
             if (packetSize < defaultProps.minPacketSize) {
                 reject(new Error(errors.packetSize.tooSmall(packetSize)));

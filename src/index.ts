@@ -1,2 +1,2 @@
-import EndlessScrollHandler from './components/EndlessScrollHandler';
-export {EndlessScrollHandler};
+import FeedHandler from './components/FeedHandler';
+export {FeedHandler};

@@ -8,21 +8,21 @@ It comes in two components : a high level one, with some pre-built visual handle
 
 ## Components
 
-+ **[EndlessScrollHandler (low level)](#endlessscrollhandler-low-level)**
++ **[FeedHandler (low level)](#endlessscrollhandler-low-level)**
     + [Minimal example](#minimal-example)
     + [Full props example](#full-props-example)
     + [Overview](#overview)
     + [Inputs](#inputs)
     + [Outputs (props)](#outputs-props)
-        + [endlessScroll.params](#endlessscrollparams)
-        + [⚠️ endlessScroll.mutateState](#-endlessscrollmutatestate)
-        + [endlessScroll.removeTuples](#endlessscrollremovetuples)
-        + [endlessScroll.insertTuples](#endlessscrollinserttuples)
-        + [endlessScroll.onScroll](#endlessscrollonscroll)
-        + [endlessScroll.search](#endlessscrollsearch)
+        + [feed.params](#endlessscrollparams)
+        + [⚠️ feed.mutateState](#-endlessscrollmutatestate)
+        + [feed.removeTuples](#endlessscrollremovetuples)
+        + [feed.insertTuples](#endlessscrollinserttuples)
+        + [feed.onScroll](#endlessscrollonscroll)
+        + [feed.search](#endlessscrollsearch)
 + **[Copyright](#copyright)**
 
-## EndlessScrollHandler (low level)
+## FeedHandler (low level)
 
 ### Minimal example
 
@@ -38,9 +38,9 @@ const Wrapper = () => {
   //...
 
   return (
-    <EndlessScrollHandler api={backendApi}>
+    <FeedHandler api={backendApi}>
         <Container/>
-    </EndlessScrollHandler>
+    </FeedHandler>
   );
 };
 
@@ -53,13 +53,13 @@ import React from 'react';
 import Tuple from 'path/to/tuple';
 import SearchBar from 'path/to/searchbar';
 
-const Container = ({endlessScroll, ...props}) => {
+const Container = ({feed, ...props}) => {
   //...
   
   return (
-    <div onScroll={endlessScroll.onScroll}>
+    <div onScroll={feed.onScroll}>
     
-        {endlessScroll.params.tuples.map(
+        {feed.params.tuples.map(
           // Each result should contain a unique key attribute and use it 
           // as an id. The key attribute is reserved by React, and should
           // also be declared here.
@@ -85,7 +85,7 @@ const Wrapper = () => {
   //...
 
   return (
-    <EndlessScrollHandler
+    <FeedHandler
       api={backendApi}
       packetSize={30}
       loadSize={120}
@@ -112,7 +112,7 @@ const Wrapper = () => {
       }}
     >
         <Container/>
-    </EndlessScrollHandler>
+    </FeedHandler>
   );
 };
 
@@ -121,7 +121,7 @@ export default Wrapper;
 
 ### Overview
 
-The EndlessScrollHandler wraps a page component, and pass some useful props to it, to easily feed user with infinite content.
+The FeedHandler wraps a page component, and pass some useful props to it, to easily feed user with infinite content.
 
 The component will handle the network calls, based on the current scroll position in the scrollable element that handles the tuples.
 
@@ -147,7 +147,7 @@ The component will handle the network calls, based on the current scroll positio
 
 **(2)** Be careful this should be used only for development purposes, as it can harm both memory and performances with large datasets.
 
-**(3)** If you use the deferLaunch flag, you'll have to trigger the first fetch manually. This can be done using the `endlessScroll.search()` function, passed to the container props.
+**(3)** If you use the deferLaunch flag, you'll have to trigger the first fetch manually. This can be done using the `feed.search()` function, passed to the container props.
 
 **(4)** By default, the component will wait for the user to scroll to one of the page limits to trigger fetch (either backward or forward). However, for a smoother user experience, and a better "infinite" sensation, it is advised to add larger thresholds. Thus, fetch will be called earlier and lower the "wait for load" impression.<br/>
 Larger thresholds means new content will always be loaded before user reach the limit, until none is left.
@@ -156,9 +156,9 @@ Larger thresholds means new content will always be loaded before user reach the 
 
 ### Outputs (props)
 
-The component adds the following parameters to children, under the `endlessScroll` props.
+The component adds the following parameters to children, under the `feed` props.
 
-#### endlessScroll.params
+#### feed.params
 
 A snapshot of the current component state.
 
@@ -175,7 +175,7 @@ A snapshot of the current component state.
 
 **(1)** Each tuple is an object, that has to contain at least a unique key attribute.
 
-#### ⚠️ endlessScroll.mutateState
+#### ⚠️ feed.mutateState
 
 Mutate the parent state. If no parameters are being passed, it will reset the parent state with some default parameters.
 
@@ -208,7 +208,7 @@ Above are the parameters of the default state. Any absent parameter will remain 
 
 ⚠️ This function has minimal guard control and can lead to unwanted behaviors.
 
-#### endlessScroll.removeTuples
+#### feed.removeTuples
 
 Remove a list of tuple ids from the current list. Tuples are represented by their unique key attribute.
 
@@ -220,7 +220,7 @@ removeTuples(scrollableElementRef, tupleId1, tupleId2, ...);
 
 ℹ️ scrollableElementRef force a second refresh of the page status after the first fetch. It can be useful, for example, on very large screens, where a load doesn't always fill the whole window space, thus letting some room for an extra fetch.
 
-#### endlessScroll.insertTuples
+#### feed.insertTuples
 
 Insert a list of tuples in the current list. New tuples have each to contain a unique key attribute.
 
@@ -232,7 +232,7 @@ insertTuples(scrollableElementRef, tuples, index);
 
 ℹ️ insert takes an extra index attribute, to tell the component where to insert the new tuples.
 
-#### endlessScroll.onScroll
+#### feed.onScroll
 
 Scroll handler to add to the scrollable container. It is responsible for triggering api fetches.
 
@@ -240,7 +240,7 @@ Scroll handler to add to the scrollable container. It is responsible for trigger
 onScroll(event);
 ```
 
-#### endlessScroll.search
+#### feed.search
 
 Search function. A search will reset the component state (mutateState with empty parameters), then repopulate tuples with an updated fetch.
 
