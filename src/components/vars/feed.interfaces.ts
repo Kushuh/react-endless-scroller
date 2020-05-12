@@ -2,7 +2,7 @@ import * as React from 'react';
 import {ApiParams, ApiResults, Init, LoadThreshold} from './handler.interfaces';
 
 interface Props {
-    children?: React.ReactNode | React.ReactNodeArray,
+    children?: React.ReactNode | React.ReactNodeArray | null,
     api: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
@@ -18,7 +18,7 @@ interface Props {
 }
 
 interface PartialProps {
-    children?: React.ReactNode | React.ReactNodeArray,
+    children?: React.ReactNode | React.ReactNodeArray | null,
     api?: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
