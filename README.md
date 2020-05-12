@@ -1,8 +1,8 @@
-# React Endless Scroller
+# React Feed
 
 ## About
 
-React Endless Scroller is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
+React Feed is a useful component to quickly create an infinite scroll element, with minimal backend API requirements and easy frontend declaration.
 
 It comes in two components : a high level one, with some pre-built visual handlers, and a more low level one, for deeper integration and customization.
 
