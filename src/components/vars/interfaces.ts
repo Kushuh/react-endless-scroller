@@ -30,10 +30,9 @@ interface ApiResults {
  * Override default state with custom user parameters on initialization.
  */
 interface Init {
-    results?: Array<ApiResult>;
+    tuples?: Array<ApiResult>;
     flags?: Flags;
     boundaries?: Boundaries;
-    error?: object | null;
     loading?: boolean;
     empty?: boolean;
     launched?: boolean;
@@ -86,7 +85,7 @@ interface LoadThreshold {
  * through the threshold point, a distance in pixel from the actual limit of the scrollable element.
  */
 interface Props {
-    children?: React.ReactChildren,
+    children?: React.ReactNode,
     api: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
@@ -98,11 +97,11 @@ interface Props {
     inRushLoad?: boolean;
     inRushLoadSize?: number;
     loadThreshold?: LoadThreshold;
-    postLoadAction?: (...any) => any | Promise<any>;
+    postLoadAction?: (...any) => any;
 }
 
 interface PartialProps {
-    children?: React.ReactChildren,
+    children?: React.ReactNode,
     api?: (params: ApiParams) => Promise<ApiResults>;
     initialProps?: Init;
     queryParams?: Record<string, any>;
@@ -114,24 +113,22 @@ interface PartialProps {
     inRushLoad?: boolean;
     inRushLoadSize?: number;
     loadThreshold?: LoadThreshold;
-    postLoadAction?: Function | Promise<any>;
+    postLoadAction?: Function;
 }
 
 interface State {
-    results: Array<ApiResult>;
+    tuples: Array<ApiResult>;
     flags: Flags;
     boundaries: Boundaries;
-    error: object | null;
     loading: boolean;
     empty: boolean;
     launched: boolean;
 }
 
 interface PartialState {
-    results?: Array<ApiResult>;
+    tuples?: Array<ApiResult>;
     flags?: Flags;
     boundaries?: Boundaries;
-    error?: object | null;
     loading?: boolean;
     empty?: boolean;
     launched?: boolean;

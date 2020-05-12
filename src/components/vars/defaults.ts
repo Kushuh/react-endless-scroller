@@ -1,7 +1,7 @@
 import {PartialState} from './interfaces';
 
 const defaultState: PartialState = {
-    results: [],
+    tuples: [],
     boundaries: {
         start: 0,
         end: 0
@@ -12,7 +12,6 @@ const defaultState: PartialState = {
         endOfResults: false
     },
     empty: false,
-    error: null,
     launched: false
 };
 

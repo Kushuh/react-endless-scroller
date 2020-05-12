@@ -9,7 +9,7 @@ for (let i = 0; i < 1000; i++) {
     });
 }
 
-const simulator: (mode, dts) => Function = (mode: number, dts: Array<ApiResult>) => {
+const simulator: (mode, dts) => (params) => Promise<ApiResults> = (mode: number, dts: Array<ApiResult>) => {
     const fakeApi: (params) => Promise<ApiResults> = (params: ApiParams) => new Promise(
         (resolve, reject) => {
             switch (mode) {

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {setStateAsync, addPropsToChildren} from 'kushuh-react-utils';
 import {defaultState, directions} from './vars/defaults';
 import {ApiResult, PartialState, Props, State} from './vars/interfaces';
@@ -6,6 +6,13 @@ import loadPacketHandler from './handlers/loadPacketHandler';
 import scrollHandler from './handlers/scrollHandler';
 import removeHandler from './handlers/removeHandler';
 import insertHandler from './handlers/insertHandler';
+
+let propsValidator;
+const isDevENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+
+if (isDevENV) {
+    propsValidator = import('./validators/propsValidator');
+}
 
 /**
  * Infinite scroll handler. Note this is the root component, which allows full control but is also slightly more tricky.
@@ -16,44 +23,109 @@ import insertHandler from './handlers/insertHandler';
  */
 class EndlessScrollHandler extends React.Component<Props, PartialState> {
     lockScrollAction = false;
+    initialProps = this.props.initialProps || {};
+
+    /**
+     * Only run validators in dev environment.
+     *
+     * @param props
+     */
+    constructor(props) {
+        super(props);
+
+        if (isDevENV) {
+            propsValidator.then(
+                ({default: validator}) => validator(props).catch(
+                    error => {
+                        console.error(error);
+                        throw new Error(error);
+                    }
+                )
+            );
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<PartialState>, snapshot?: any) {
+        if (isDevENV) {
+            propsValidator.then(
+                ({default: validator}) => validator(this.props).catch(
+                    error => {
+                        console.error(error);
+                        throw new Error(error);
+                    }
+                )
+            );
+        }
+    }
+
+    /**
+     * Returns an error if props aren't valid.
+     * 
+     * @param props
+     */
 
     /**
      * Only force full state during initialization. This ensure every parameter is correctly set. We later use the
      * PartialState interface to allow partial updates of the state (both are similar, except every parameter in
      * PartialState is optional).
      *
-     * @param {[]object} results - holds an array of tiles retrieved from database
+     * @param {[]object} tuples - holds an array of tiles retrieved from database
      * @param {object{
-     *     @param {boolean} beginningOfResults - no results left above
-     *     @param {boolean} endOfResults - no results left below
+     *     @param {boolean} beginningOfResults - no tuples left above
+     *     @param {boolean} endOfResults - no tuples left below
      * }} flags - inform the component about the current request status(1)
      * @param {object{
      *     @param {number} start - offset from start
      *     @param {number} end - offset from end
      * }} boundaries - inform the component about the current request position(2)
-     * @param {object} error
      * @param {boolean} loading
      * @param {boolean} empty
      * @param {boolean} launched
      *
      *
-     * (1) Unless specified otherwise, the component load results from start. Thus, beginningOfResults flag is set to
+     * (1) Unless specified otherwise, the component load tuples from start. Thus, beginningOfResults flag is set to
      * true. Since they may be some data to load, endOfResults is set to false. If the dataset doesn't contain any, or
-     * even enough results, then the first load will instantly set the second flag to true. If no results are returned
+     * even enough tuples, then the first load will instantly set the second flag to true. If no tuples are returned
      * from first load, an additional empty flag will be set to true.
      *
-     * (2) Given a dataset of n tiles. At any moment, the results are loaded from offset x to offset y,
+     * (2) Given a dataset of n tiles. At any moment, the tuples are loaded from offset x to offset y,
      * with 0 <= x <= y <= n.
      */
     state: State = {
-        results: (this.props.initialProps || {}).results || [],
-        flags: Object.assign({beginningOfResults: true, endOfResults: false}, (this.props.initialProps || {}).flags || {}),
-        boundaries: Object.assign({start: 0, end: 0}, (this.props.initialProps || {}).boundaries || {}),
-        error: (this.props.initialProps || {}).error,
-        loading: (this.props.initialProps || {}).loading || false,
-        empty: (this.props.initialProps || {}).empty || false,
-        launched: (this.props.initialProps || {}).launched || false
+        tuples: (this.props.initialProps || {}).tuples || [],
+        flags: Object.assign(
+            {beginningOfResults: true, endOfResults: false},
+            this.initialProps.flags || {}
+        ),
+        boundaries: Object.assign(
+            {start: 0, end: 0},
+            this.initialProps.boundaries || {}
+        ),
+        loading: this.initialProps.loading != null ? this.initialProps.loading : !this.props.deferLaunch,
+        empty: this.initialProps.empty || false,
+        launched: this.initialProps.launched || false
     };
+
+    /**
+     * Call first fetch when deferLaunch is not set to true.
+     */
+    preLoad = this.props.deferLaunch ?
+        null :
+        loadPacketHandler(directions.forward, this.state, this.props);
+
+    async componentDidMount() {
+        if (this.preLoad !== null) {
+            try {
+                const {apiResults, ...results} = await this.preLoad;
+                await setStateAsync(this, results);
+                if (this.props.postLoadAction) {
+                    this.props.postLoadAction(apiResults);
+                }
+            } catch(error) {
+                await this.errorHandler(error);
+            }
+        }
+    }
 
     /**
      * Default error handler, which wraps user handler if set.
@@ -88,16 +160,6 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
     });
 
     /**
-     * Component call api once mounted, although this behavior can be override for specific needs. If the user choose to
-     * use the deferLaunch flag, then it will have to manually trigger the first request when it's ready.
-     */
-    componentDidMount(): void {
-        if (!this.props.deferLaunch) {
-            this.loadPacket(directions.forward, null).catch(this.errorHandler);
-        }
-    }
-
-    /**
      * Load a packet from the dataset when needed. Direction indicate from which limit to load the packet, and also
      * where to insert it once fetched.
      *
@@ -106,10 +168,10 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
      */
     loadPacket: (direction, scrollElement) => Promise<void> =
         (direction: string, scrollElement?: React.RefObject<HTMLInputElement>) => new Promise(
-            (resolve, reject) => {
+            async (resolve, reject) => {
                 this.setState({loading: true});
 
-                const {results} = this.state;
+                const {tuples} = this.state;
                 let updateScrollPosition: () => void;
 
                 /**
@@ -124,8 +186,8 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
                  * The reason we stick to boundary element is, because of some optimization concern, while new data is added,
                  * old data can often be removed.
                  */
-                if (results.length && scrollElement != null) {
-                    const refElement = results[direction === directions.forward ? results.length - 1 : 0];
+                if (tuples.length && scrollElement != null) {
+                    const refElement = tuples[direction === directions.forward ? tuples.length - 1 : 0];
                     const HTMLElement = document.getElementById(refElement.key);
                     const {top} = HTMLElement.getBoundingClientRect();
 
@@ -144,29 +206,27 @@ class EndlessScrollHandler extends React.Component<Props, PartialState> {
                  * Call the api and parse result data. The handler will create an updated PartialState and return it.
                  * Once new state is set, we update scroll position and resolve the function.
                  */
-                loadPacketHandler(direction, this.state, this.props)
-                    .then(
-                        ({apiResults, ...results}) => setStateAsync(this, results)
-                            .then(() => Promise.resolve(apiResults))
-                    )
-                    .then(apiResults => {
-                        updateScrollPosition();
-                        if (this.props.postLoadAction) {
-                            this.props.postLoadAction(apiResults);
-                        }
-                        if (scrollElement) {
-                            scrollElement.current.dispatchEvent(new CustomEvent('scroll'));
-                        }
-                        resolve();
-                    })
-                    .catch(reject);
+                try {
+                    const {apiResults, ...results} = await loadPacketHandler(direction, this.state, this.props);
+                    await setStateAsync(this, results);
+                    updateScrollPosition();
+                    if (this.props.postLoadAction) {
+                        this.props.postLoadAction(apiResults);
+                    }
+                    if (scrollElement) {
+                        scrollElement.current.dispatchEvent(new CustomEvent('scroll'));
+                    }
+                    resolve();
+                } catch(error) {
+                    reject(error);
+                }
             }
         );
 
     /**
      * Trigger a fetch to dataset automatically when user is about to reach the end of available data to scroll.
      *
-     * @param event"
+     * @param event'
      */
     onScroll: (event) => void = async (event: any) => {
         /**

@@ -27,7 +27,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(60);
+                    expect(newState.tuples.length).toBe(60);
 
                     try {
                         newState = await loadPacketHandler(
@@ -40,7 +40,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(90);
+                    expect(newState.tuples.length).toBe(90);
 
                     try {
                         newState = await loadPacketHandler(
@@ -53,7 +53,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(120);
+                    expect(newState.tuples.length).toBe(120);
 
                     try {
                         newState = await loadPacketHandler(
@@ -66,7 +66,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(120);
+                    expect(newState.tuples.length).toBe(120);
                 });
 
                 it('should return inRushLoadSize results with inRushLoadSize > packetSize, then packetSize more', async () => {
@@ -83,7 +83,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(45);
+                    expect(newState.tuples.length).toBe(45);
 
                     try {
                         newState = await loadPacketHandler(
@@ -96,7 +96,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(75);
+                    expect(newState.tuples.length).toBe(75);
 
                     try {
                         newState = await loadPacketHandler(
@@ -109,7 +109,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(60);
+                    expect(newState.tuples.length).toBe(60);
 
                     try {
                         newState = await loadPacketHandler(
@@ -122,7 +122,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(105);
+                    expect(newState.tuples.length).toBe(105);
                 });
 
                 it('should return inRushLoadSize results with inRushLoadSize < packetSize, then packetSize more', async () => {
@@ -139,7 +139,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(15);
+                    expect(newState.tuples.length).toBe(15);
 
                     try {
                         newState = await loadPacketHandler(
@@ -152,7 +152,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(45);
+                    expect(newState.tuples.length).toBe(45);
 
                     try {
                         newState = await loadPacketHandler(
@@ -165,7 +165,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(15);
+                    expect(newState.tuples.length).toBe(15);
 
                     try {
                         newState = await loadPacketHandler(
@@ -178,7 +178,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(60);
+                    expect(newState.tuples.length).toBe(60);
                 });
 
                 it('should return packetSize results with inRushLoad set to false, then packetSize more', async () => {
@@ -195,7 +195,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(30);
+                    expect(newState.tuples.length).toBe(30);
 
                     try {
                         newState = await loadPacketHandler(
@@ -208,7 +208,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(60);
+                    expect(newState.tuples.length).toBe(60);
 
                     try {
                         newState = await loadPacketHandler(
@@ -221,7 +221,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(45);
+                    expect(newState.tuples.length).toBe(45);
 
                     try {
                         newState = await loadPacketHandler(
@@ -234,7 +234,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(90);
+                    expect(newState.tuples.length).toBe(90);
                 });
 
                 it('should return packetSize results with loadSize < 2*packetSize and inRushLoad set to false, then loadSize results', async () => {
@@ -251,7 +251,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(30);
+                    expect(newState.tuples.length).toBe(30);
 
                     try {
                         newState = await loadPacketHandler(
@@ -264,7 +264,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(45);
+                    expect(newState.tuples.length).toBe(45);
                 });
 
                 it('should return loadSize results with inRushLoadSize > loadSize', async () => {
@@ -281,7 +281,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(90);
+                    expect(newState.tuples.length).toBe(90);
                 });
 
                 it('should return packetSize results, then 2*packetSize results with loadSize < 2*packetSize, no inRushLoad and bypassLoadSize', async () => {
@@ -298,7 +298,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(30);
+                    expect(newState.tuples.length).toBe(30);
 
                     try {
                         newState = await loadPacketHandler(
@@ -311,7 +311,7 @@ describe(
                     }
 
                     expect(status).toBe(0);
-                    expect(newState.results.length).toBe(60);
+                    expect(newState.tuples.length).toBe(60);
                 });
             }
         );

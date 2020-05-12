@@ -3,10 +3,9 @@ import {expect} from '@jest/globals';
 import errors from '../../vars/errors';
 
 const state: State = {
-    results: [],
+    tuples: [],
     flags: {beginningOfResults: true, endOfResults: false},
     boundaries: {start: 0, end: 0},
-    error: null,
     loading: false,
     empty: false,
     launched: false
@@ -17,16 +16,15 @@ const testResult: (r, st, l, s, e, sf, ef) => void =
         expect(st).toBe(0);
         expect(r.launched).toBe(true);
         expect(r.loading).toBe(false);
-        expect(r.error).toBeNull();
-        expect(r.results.length).toBe(l);
+        expect(r.tuples.length).toBe(l);
         expect(r.flags.beginningOfResults).toBe(sf);
         expect(r.flags.endOfResults).toBe(ef);
         expect(r.boundaries.start).toBe(s);
         expect(r.boundaries.end).toBe(e);
 
-        for (let i = 0; i < r.results.length; i++) {
+        for (let i = 0; i < r.tuples.length; i++) {
             expect(
-                r.results.slice(i + 1).find(x => x.key === r.results[i].key)
+                r.tuples.slice(i + 1).find(x => x.key === r.tuples[i].key)
             ).toBeUndefined();
         }
     };
@@ -125,7 +123,7 @@ const wrongApiResponses = [
     [
         'should reject response with non Object queryResults tuple',
         {boundaries: {start: 0, end: 0}, flags: {endOfResults: false}, queryResults: ['A string']},
-        errors.apiResults.notValidTuple('A string.')
+        errors.apiResults.notValidTuple('A string.', 'api in queryResults')
     ],
     [
         'should reject response when tuple with no key',
@@ -135,7 +133,7 @@ const wrongApiResponses = [
     [
         'should reject response when tuple is null',
         {boundaries: {start: 0, end: 0}, flags: {endOfResults: false}, queryResults: [null, {key: 1}]},
-        errors.apiResults.notValidTuple(null)
+        errors.apiResults.notValidTuple(null, 'api in queryResults')
     ]
 ];
 

@@ -1,12 +1,12 @@
 import {ApiResult, PartialState, State} from '../vars/interfaces';
 
-const insertHandler: (tuples, state, index) => PartialState =
-    (tuples: Array<ApiResult>, state: State, index: number) => {
-        const {results} = state;
-        const filteredTuples = tuples.filter(x => !results.find(y => y.key === x.key));
-        results.splice(index, 0, ...filteredTuples);
+const insertHandler: (newTuples, state, index) => PartialState =
+    (newTuples: Array<ApiResult>, state: State, index: number) => {
+        const {tuples} = state;
+        const filteredTuples = newTuples.filter(x => !tuples.find(y => y.key === x.key));
+        tuples.splice(index, 0, ...filteredTuples);
 
-        return ({results});
+        return ({tuples});
     };
 
 export default insertHandler;

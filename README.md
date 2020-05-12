@@ -59,7 +59,7 @@ const Container = ({endlessScroll, ...props}) => {
   return (
     <div onScroll={endlessScroll.onScroll}>
     
-        {endlessScroll.params.results.map(
+        {endlessScroll.params.tuples.map(
           // Each result should contain a unique key attribute and use it 
           // as an id. The key attribute is reserved by React, and should
           // also be declared here.
@@ -152,7 +152,7 @@ The component will handle the network calls, based on the current scroll positio
 **(4)** By default, the component will wait for the user to scroll to one of the page limits to trigger fetch (either backward or forward). However, for a smoother user experience, and a better "infinite" sensation, it is advised to add larger thresholds. Thus, fetch will be called earlier and lower the "wait for load" impression.<br/>
 Larger thresholds means new content will always be loaded before user reach the limit, until none is left.
 
-**(5)** Boundaries, flags, results, error, loading, empty, launched can be overridden.
+**(5)** Boundaries, flags, tuples, loading, empty, launched can be overridden.
 
 ### Outputs (props)
 
@@ -164,14 +164,13 @@ A snapshot of the current component state.
 
 | key | type | description |
 | :---: | :---: | :--- |
-| results | Array<object> | A list of the currently loaded tuples.**(1)** |
-| flags.beginningOfResults | boolean | Indicate if results are still left in backward fetch mode (before the first result). |
-| flags.endOfResults | boolean | Indicate if results are still left in forward fetch mode (after the last result). |
+| tuples | Array<object> | A list of the currently loaded tuples.**(1)** |
+| flags.beginningOfResults | boolean | Indicate if tuples are still left in backward fetch mode (before the first result). |
+| flags.endOfResults | boolean | Indicate if tuples are still left in forward fetch mode (after the last result). |
 | boundaries.start | number | The dataset index of the first tuple. |
 | boundaries.end | number | The dataset index of the last tuple. |
-| error | Error | The last and still valid error that occured in the component, typically during fetch. It is set back to null each time a new action is taken. |
 | loading | boolean | Set to true if a fetch operation is ongoing. |
-| empty | boolean | Set to true if no results were returned, and both beginningOfResults and endOfResults have been set to true. |
+| empty | boolean | Set to true if no tuples were returned, and both beginningOfResults and endOfResults have been set to true. |
 | launched | boolean | Set to true once the component has trigger a successful fetch. |
 
 **(1)** Each tuple is an object, that has to contain at least a unique key attribute.
@@ -192,7 +191,7 @@ Above are the parameters of the default state. Any absent parameter will remain 
 
 ```jsx
 {
-    results: [],
+    tuples: [],
     boundaries: {
         start: 0,
         end: 0
@@ -203,7 +202,6 @@ Above are the parameters of the default state. Any absent parameter will remain 
         endOfResults: false
     },
     empty: false,
-    error: null,
     launched: false
 }
 ```
