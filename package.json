@@ -15,7 +15,7 @@
   "version": "1.1.1",
   "private": false,
   "dependencies": {
-    "kushuh-react-utils": "^1.1.6",
+    "kushuh-react-utils": "^1.1.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -50,7 +50,21 @@
       "last 1 safari version"
     ]
   },
-  "keywords": ["infinite", "infinite-scroll", "react", "reactjs", "endless", "endless-scroll", "infinite-scroller", "endless-scroller", "intuitive", "simple", "feed", "newsfeed", "efficient"],
+  "keywords": [
+    "infinite",
+    "infinite-scroll",
+    "react",
+    "reactjs",
+    "endless",
+    "endless-scroll",
+    "infinite-scroller",
+    "endless-scroller",
+    "intuitive",
+    "simple",
+    "feed",
+    "newsfeed",
+    "efficient"
+  ],
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
