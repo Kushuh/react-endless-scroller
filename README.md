@@ -3,10 +3,10 @@
 <h6 align="center">About</h6>
 <p align="center">
     <a href="https://github.com/Kushuh/react-endless-scroller">
-        <img src="https://img.shields.io/npm/v/react-endless-scroller" alt="version"/>
+        <img src="https://img.shields.io/npm/v/react-endless-feed" alt="version"/>
     </a>
     <a href="https://github.com/Kushuh/react-endless-scroller/blob/master/LICENSE">
-        <img src="https://img.shields.io/npm/l/react-endless-scroller" alt="license"/>
+        <img src="https://img.shields.io/npm/l/react-endless-feed" alt="license"/>
     </a>
     <a href="https://github.com/Kushuh/react-endless-scroller/issues">
         <img src="https://img.shields.io/github/issues-raw/kushuh/react-endless-scroller" alt="open issues"/>
