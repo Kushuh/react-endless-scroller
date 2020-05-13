@@ -64,7 +64,8 @@ For how to build the backendApi, please refer to <a href="https://github.com/Kus
 *Wrapper.jsx*
 ```jsx
 import React from 'react';
-import Container from 'path/to/container';
+import {EndlessFeedHandler} from 'react-endless-feed';
+import Container from 'path/to/Container.jsx';
 import backendApi from 'path/to/api';
 
 const Wrapper = () => {
@@ -83,8 +84,7 @@ export default Wrapper;
 *Container.jsx*
 ```jsx
 import React from 'react';
-import Tuple from 'path/to/tuple';
-import SearchBar from 'path/to/searchbar';
+import Tuple from 'path/to/Tuple.jsx';
 
 const Container = ({feed, ...props}) => {
   //...
