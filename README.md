@@ -304,7 +304,7 @@ Remove a list of tuples from the current list. Tuples are represented by their u
 removeTuples(scrollableElementRef, tupleKey1, tupleKey2, ...);
 ```
 
-ℹ️ scrollableElementRef force a second refresh of the page status after the first fetch. It can be useful, for example, on very large screens, where a load doesn't always fill the whole window space, thus letting some room for an extra fetch.
+ℹ️ scrollableElementRef force a refresh of the page status after the operation. It has to be a valid React ref.
 
 #### feed.insertTuples
 
