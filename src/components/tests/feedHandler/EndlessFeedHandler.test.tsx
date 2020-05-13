@@ -7,7 +7,7 @@ import {simulator, dataset} from '../loadPacketHandler/simulators';
 import {describe, afterEach, expect, it, jest} from '@jest/globals';
 
 Enzyme.configure({ adapter: new Adapter() });
-const {shallow} = Enzyme;
+const {mount} = Enzyme;
 const postLoadAction = jest.fn();
 
 describe(
@@ -20,7 +20,7 @@ describe(
         const mountComponent = props => new Promise(
             async resolve => {
                 mountSpy = jest.spyOn(EndlessFeedHandler.prototype, 'componentDidMount');
-                feed = await shallow(
+                feed = await mount(
                     <EndlessFeedHandler api={simulator(0, dataset)} {...(props || {})}>
                         <ChildSimulator foo='bar'/>
                     </EndlessFeedHandler>
