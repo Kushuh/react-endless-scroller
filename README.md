@@ -47,11 +47,12 @@ It comes in two components : a high level one, with some pre-built visual handle
     + [Inputs](#inputs)
     + [Outputs (props)](#outputs-props)
         + [feed.params](#endlessscrollparams)
-        + [⚠️ feed.mutateState](#-endlessscrollmutatestate)
-        + [feed.removeTuples](#endlessscrollremovetuples)
-        + [feed.insertTuples](#endlessscrollinserttuples)
         + [feed.onScroll](#endlessscrollonscroll)
         + [feed.search](#endlessscrollsearch)
+        + [⚠️ feed.mutateState](#-endlessscrollmutatestate)
+        + [Content mutators](#content-mutators)
+            + [feed.removeTuples](#endlessscrollremovetuples)
+            + [feed.insertTuples](#endlessscrollinserttuples)
 + **[Copyright](#copyright)**
 
 ## EndlessFeedHandler (low level)
@@ -166,14 +167,14 @@ The component will handle the network calls, based on the current scroll positio
 | loadSize | number<br />3 < n & 1.5 * packetSize <= n | - | 120 | The maximum number of tuples to keep in the DOM.**(1)** |
 | ⚠️ bypassLoadSize | boolean | - | false | Disable the content limit to load in the DOM.**(2)** |
 | inRushLoad | boolean | - | true | Force bigger loads when their is not enough content on the wall. |
-| inRushLoadSize | number<br/>1 < n | - | 60 | When inRushLoad is active, determine the amount of data to load instead of packetSize. |
+| inRushLoadSize | number<br/>1 < n | - | 60 | When inRushLoad is active and not enough content is available on the wall, determine the amount of data to load instead of packetSize. |
 | deferLaunch | boolean | - | false | Disable the initial fetch launched by the component when mounted.**(3)** |
 | loadThreshold.top | number<br/> 0 <= n | - | 1 | Distance in pixel from top, when a new backward fetch has to be triggered.**(4)** |
 | loadThreshold.bottom | number<br/> 0 <= n | - | 1 | Distance in pixel from bottom, when a new forward fetch has to be triggered.**(4)** |
 | errorHandler | Function | - | - | A function that is called each time an error occurs inside the component. |
 | initialProps | object | - | - | Override some initial state parameters.**(5)** |
 | queryParams | any | - | object | Additional parameters to send to the api for fetches. |
-| postLoadAction | Function | - | - | Is triggered after each successful fetch. |
+| postLoadAction | Function | - | - | Is triggered after each successful fetch.**(6)** |
 
 **(1)** This prop default value can be overridden with the bypassLoadSize flag.
 
@@ -185,6 +186,32 @@ The component will handle the network calls, based on the current scroll positio
 Larger thresholds means new content will always be loaded before user reach the limit, until none is left.
 
 **(5)** Boundaries, flags, tuples, loading, empty, launched can be overridden.
+
+**(6)** It is interesting to take a look at how the component handles network calls. Fetch occurs in the following order:
+```
+- Call to class method handler.
+    - Update flags and eventually keep a snapshot of the pre-fetch state.
+    - Call to loadPacket external handler.
+        - Compute parameters for the api call.
+        - Call the api.
+        - Compute results and merge them with the current set.
+        - Returns an updated state.
+    - Call postLoadAction with external handler return value.
+    - Update component state.
+    - Adjust visual state for cohesion with the previous one.
+```
+As you can see, postLoadAction is called **before** the state actually being updated, allowing for quicker response.
+As a counterpart, it will receive a partial snapshot of the new state as a parameter, along with the full api results (to handle some special returns that are ignored by the component).
+If you need to wait for the state to fully update, prefer listening to your props, as they will be refreshed.
+
+Also keep in mind it won't trigger if any error occurs. For this particuliar case, use the *errorHandler* property.
+
+```js
+const postLoadAction = ({apiResults, ...partialState}) => {
+  // do anything.
+  return;
+};
+```
 
 ### Outputs (props)
 
@@ -206,6 +233,23 @@ A snapshot of the current component state.
 | launched | boolean | Set to true once the component has trigger a successful fetch. |
 
 **(1)** Each tuple is an object, that has to contain at least a unique key attribute.
+
+#### feed.onScroll
+
+Scroll handler to add to the scrollable container. It is responsible for triggering api fetches.
+
+```jsx
+onScroll(event);
+```
+
+#### feed.search
+
+Search function. A search will reset the component state (mutateState with empty parameters), then repopulate tuples with an updated fetch.
+
+```jsx
+// Takes no parameters.
+search();
+```
 
 #### ⚠️ feed.mutateState
 
@@ -240,21 +284,31 @@ Above are the parameters of the default state. Any absent parameter will remain 
 
 ⚠️ This function has minimal guard control and can lead to unwanted behaviors.
 
+#### Content mutators
+
+Content mutators are used to dynamically update some parts of the feed.
+They can be used to add non network content, or to handle some editing options (if you want to delete a tuple for example).
+
+Note they don't change any parameters (such as flags or boundaries). If you want to do so,
+please use them along with `mutateState` or `search` methods.
+
+Mutators behavior can be implemented with `mutateState`, however they take some extra care to handle duplicate keys and data integrity. If any change needs to be made to the feed, they should be prefered.
+
 #### feed.removeTuples
 
-Remove a list of tuple ids from the current list. Tuples are represented by their unique key attribute.
+Remove a list of tuples from the current list. Tuples are represented by their unique key attribute.
 
 ```jsx
 // scrollableElementRef is optional. If omitted, set it to null or undefined,
 // as the first parameter will automatically be attributed to it.
-removeTuples(scrollableElementRef, tupleId1, tupleId2, ...);
+removeTuples(scrollableElementRef, tupleKey1, tupleKey2, ...);
 ```
 
 ℹ️ scrollableElementRef force a second refresh of the page status after the first fetch. It can be useful, for example, on very large screens, where a load doesn't always fill the whole window space, thus letting some room for an extra fetch.
 
 #### feed.insertTuples
 
-Insert a list of tuples in the current list. New tuples have each to contain a unique key attribute.
+Insert a list of tuples in the current list. New tuples have each to contain a unique key attribute. Index is optional and will by default append results to the current dataset.
 
 ```jsx
 // scrollableElementRef is optional. If omitted, set it to null or undefined,
@@ -263,23 +317,6 @@ insertTuples(scrollableElementRef, tuples, index);
 ```
 
 ℹ️ insert takes an extra index attribute, to tell the component where to insert the new tuples.
-
-#### feed.onScroll
-
-Scroll handler to add to the scrollable container. It is responsible for triggering api fetches.
-
-```jsx
-onScroll(event);
-```
-
-#### feed.search
-
-Search function. A search will reset the component state (mutateState with empty parameters), then repopulate tuples with an updated fetch.
-
-```jsx
-// Takes no parameters.
-search();
-```
 
 ## Copyright
 2020 Kushuh - MIT license

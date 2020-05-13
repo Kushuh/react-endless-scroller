@@ -59,12 +59,6 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     }
 
     /**
-     * Returns an error if props aren't valid.
-     * 
-     * @param props
-     */
-
-    /**
      * Only force full state during initialization. This ensure every parameter is correctly set. We later use the
      * PartialState interface to allow partial updates of the state (both are similar, except every parameter in
      * PartialState is optional).
@@ -107,7 +101,12 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     };
 
     /**
-     * Call first fetch when deferLaunch is not set to true.
+     * Unless deferLaunch is set to true, first api call is launched before the component even mounts. We don't call the
+     * class wrapper since we don't want to update state yet. If ever data fetches before component is mounted, it will
+     * be hold until componentDidMount method is called (the then method of an already resolved Promise works, it will
+     * resolve synchronously).
+     *
+     * This allow for faster data loading and page charging.
      */
     preLoad = this.props.deferLaunch ?
         null :
@@ -117,10 +116,11 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
         if (this.preLoad !== null) {
             try {
                 const {apiResults, ...results} = await this.preLoad;
-                await setStateAsync(this, results);
                 if (this.props.postLoadAction) {
                     this.props.postLoadAction(apiResults);
                 }
+
+                await setStateAsync(this, results);
             } catch(error) {
                 await this.errorHandler(error);
             }
@@ -151,7 +151,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     mutateState: (params) => Promise<void> = (params?: PartialState) => setStateAsync(this, params || defaultState);
 
     /**
-     * Reset tiles and reload the wall.
+     * Reset tuples and reload the wall.
      */
     search: () => Promise<void> = () => new Promise(async resolve => {
         await this.mutateState(null);
@@ -208,11 +208,11 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
                  */
                 try {
                     const {apiResults, ...results} = await loadPacketHandler(direction, this.state, this.props);
-                    await setStateAsync(this, results);
-                    updateScrollPosition();
                     if (this.props.postLoadAction) {
-                        this.props.postLoadAction(apiResults);
+                        this.props.postLoadAction({apiResults, ...results});
                     }
+                    await setStateAsync(this, results);
+                    if (updateScrollPosition != null) updateScrollPosition();
                     if (scrollElement) {
                         scrollElement.current.dispatchEvent(new CustomEvent('scroll'));
                     }

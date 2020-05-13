@@ -21,12 +21,12 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
 
         if (api == null) {
             reject(new Error(errors.props.missingApi));
-        } else if (api.constructor !== Function) {
+        } else if (api.constructor.name !== 'Function') {
             reject(new Error(errors.props.notValidApi(api)));
         }
 
         if (initialProps != null) {
-            if (initialProps.constructor !== Object) {
+            if (initialProps.constructor.name !== 'Object') {
                 reject(new Error(errors.props.notValidInitialProps(initialProps)));
             } else {
                 const {tuples, flags, boundaries, loading, empty, launched, ...other} = initialProps;
@@ -36,21 +36,21 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
                         'This key will be ignored.')
                 }
 
-                if (tuples != null && tuples.constructor !== Array) {
+                if (tuples != null && tuples.constructor.name !== 'Array') {
                     reject(new Error(errors.props.notValidTuples(tuples)));
                 } else if (tuples != null) {
                     await tuplesValidator(tuples, 'tuples in initialProps').catch(reject);
                 }
 
                 if (boundaries != null) {
-                    if (boundaries.constructor !== Object) {
+                    if (boundaries.constructor.name !== 'Object') {
                         reject(new Error(errors.props.notValidBoundaries(boundaries)));
                     } else {
-                        if (boundaries.start != null && boundaries.start.constructor !== Number) {
+                        if (boundaries.start != null && boundaries.start.constructor.name !== 'Number') {
                             reject(new Error(errors.props.notValidStartBoundary(boundaries.start)));
                         }
 
-                        if (boundaries.end != null && boundaries.end.constructor !== Number) {
+                        if (boundaries.end != null && boundaries.end.constructor.name !== 'Number') {
                             reject(new Error(errors.props.notValidEndBoundary(boundaries.end)));
                         }
 
@@ -61,30 +61,30 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
                 }
 
                 if (flags != null) {
-                    if (flags.constructor != Object) {
+                    if (flags.constructor.name !== 'Object') {
                         reject(new Error(errors.props.notValidFlags(flags)));
                     } else {
                         const {endOfResults, beginningOfResults} = flags;
 
-                        if (endOfResults != null && endOfResults.constructor !== Boolean) {
+                        if (endOfResults != null && endOfResults.constructor.name !== 'Boolean') {
                             reject(new Error(errors.props.notValidEndOfResultsFlag(endOfResults)));
                         }
 
-                        if (beginningOfResults != null && beginningOfResults.constructor !== Boolean) {
+                        if (beginningOfResults != null && beginningOfResults.constructor.name !== 'Boolean') {
                             reject(new Error(errors.props.notValidBeginningOfResultsFlag(beginningOfResults)));
                         }
                     }
                 }
 
-                if (loading != null && loading.constructor !== Boolean) {
+                if (loading != null && loading.constructor.name !== 'Boolean') {
                     reject(new Error(errors.props.notValidLoadingFlag(loading)));
                 }
 
-                if (empty != null && empty.constructor !== Boolean) {
+                if (empty != null && empty.constructor.name !== 'Boolean') {
                     reject(new Error(errors.props.notValidEmptyFlag(empty)));
                 }
 
-                if (launched != null && launched.constructor !== Boolean) {
+                if (launched != null && launched.constructor.name !== 'Boolean') {
                     reject(new Error(errors.props.notValidLaunchedFlag(launched)));
                 }
             }
@@ -92,40 +92,40 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
 
         }
 
-        if (queryParams != null && queryParams.constructor != Object) {
+        if (queryParams != null && queryParams.constructor.name !== 'Object') {
             reject(new Error(errors.props.notValidQueryParams(queryParams)));
         }
 
-        if (deferLaunch != null && deferLaunch.constructor !== Boolean) {
+        if (deferLaunch != null && deferLaunch.constructor.name !== 'Boolean') {
             reject(new Error(errors.props.notValidDeferLaunch(deferLaunch)));
         }
 
-        if (errorHandler != null && errorHandler.constructor !== Function) {
+        if (errorHandler != null && errorHandler.constructor.name !== 'Function') {
             reject(new Error(errors.props.notValidErrorHandler(errorHandler)));
         }
 
-        if (bypassLoadSize != null && bypassLoadSize.constructor !== Boolean) {
+        if (bypassLoadSize != null && bypassLoadSize.constructor.name !== 'Boolean') {
             reject(new Error(errors.props.notValidBypassLoadSize(bypassLoadSize)));
         }
 
-        if (packetSize != null && packetSize.constructor !== Number) {
+        if (packetSize != null && packetSize.constructor.name !== 'Number') {
             reject(new Error(errors.props.notValidPacketSize(packetSize)));
         }
 
-        if (loadSize != null && loadSize.constructor !== Number) {
+        if (loadSize != null && loadSize.constructor.name !== 'Number') {
             reject(new Error(errors.props.notValidLoadSize(loadSize)));
         }
 
-        if (inRushLoad != null && inRushLoad.constructor !== Boolean) {
+        if (inRushLoad != null && inRushLoad.constructor.name !== 'Boolean') {
             reject(new Error(errors.props.notValidInRushLoad(inRushLoad)));
         }
 
-        if (inRushLoadSize != null && inRushLoadSize.constructor !== Number) {
+        if (inRushLoadSize != null && inRushLoadSize.constructor.name !== 'Number') {
             reject(new Error(errors.props.notValidInRushLoadSize(inRushLoadSize)));
         }
 
         if (loadThreshold != null) {
-            if (loadThreshold.constructor !== Object) {
+            if (loadThreshold.constructor.name !== 'Object') {
                 reject(new Error(errors.props.notValidLoadThreshold(loadThreshold)));
             } else {
                 const {top, bottom, ...other} = loadThreshold;
@@ -135,13 +135,13 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
                         'This key will be ignored.')
                 }
 
-                if (top != null && top.constructor !== Number) {
+                if (top != null && top.constructor.name !== 'Number') {
                     reject(new Error(errors.props.notValidTopThreshold(top)));
                 } else if (top <= 0) {
                     reject(new Error(errors.props.tooSmallTopThreshold(top)));
                 }
 
-                if (bottom != null && bottom.constructor !== Number) {
+                if (bottom != null && bottom.constructor.name !== 'Number') {
                     reject(new Error(errors.props.notValidBottomThreshold(bottom)));
                 } else if (bottom <= 0) {
                     reject(new Error(errors.props.tooSmallBottomThreshold(bottom)));
@@ -149,7 +149,7 @@ const propsValidator: (p) => Promise<any> = (props: PartialProps) => new Promise
             }
         }
 
-        if (postLoadAction != null && postLoadAction.constructor !== Function) {
+        if (postLoadAction != null && postLoadAction.constructor.name !== 'Function') {
             reject(new Error(errors.props.notValidPostLoadAction(postLoadAction)));
         }
 
