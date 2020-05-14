@@ -164,10 +164,10 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      * where to insert it once fetched.
      *
      * @param {string} direction - backward or forward
-     * @param {React.RefObject<HTMLInputElement>} scrollElement
+     * @param {React.RefObject<HTMLElement>} scrollElement
      */
     loadPacket: (direction, scrollElement) => Promise<void> =
-        (direction: string, scrollElement?: React.RefObject<HTMLInputElement>) => new Promise(
+        (direction: string, scrollElement?: React.RefObject<HTMLElement>) => new Promise(
             async (resolve, reject) => {
                 this.setState({loading: true});
 
