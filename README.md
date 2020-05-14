@@ -313,6 +313,8 @@ Insert a list of tuples in the current list. New tuples have each to contain a u
 ```jsx
 // scrollableElementRef is optional. If omitted, set it to null or undefined,
 // as the first parameter will automatically be attributed to it.
+
+// Also tuples is an array this time, instead of a list of arguments.
 insertTuples(scrollableElementRef, tuples, index);
 ```
 
