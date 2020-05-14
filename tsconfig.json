@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "outDir": "build",
-    "jsx": "react",
-    "noImplicitAny": false,
-    "removeComments": true,
-    "sourceMap": false,
+    "target": "es5",
     "module": "ESNext",
-    "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "baseUrl": "src"
+    "resolveJsonModule": true,
+    "lib": [
+      "es2015",
+      "esnext",
+      "dom"
+    ],
+    "types": ["node"],
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "lib",
+    "rootDir": "src",
+    "jsx": "react",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "exclude": [
     "node_modules/"
