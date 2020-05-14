@@ -14,13 +14,12 @@
   "version": "1.2.8",
   "private": false,
   "dependencies": {
-    "kushuh-react-utils": "^1.2.5",
+    "kushuh-react-utils": "^1.2.9",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
-  "main": "./lib/index.js",
+  "main": "./build/index.js",
   "files": [
-    "lib/*.js",
     "build/*"
   ],
   "scripts": {

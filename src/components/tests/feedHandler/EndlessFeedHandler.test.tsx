@@ -147,14 +147,14 @@ describe(
 
             const subsetKeys = feed.state().tuples.slice(10-20).map(({key}) => key);
 
-            await feed.instance().removeTuples(null, ...subsetKeys);
+            await feed.instance().removeTuples({ids: subsetKeys});
             expect(feed.state().tuples.length).toBe(50);
 
             for (const key of subsetKeys) {
                 expect(feed.state().tuples.findIndex(x => x.key === key)).toBe(-1);
             }
 
-            await feed.instance().removeTuples(null, 'fakeKey-1', 'fakeKey-2');
+            await feed.instance().removeTuples({ids: ['fakeKey-1', 'fakeKey-2']});
             expect(feed.state().tuples.length).toBe(50);
         });
 
@@ -165,16 +165,18 @@ describe(
 
             const subsetKeys = feed.state().tuples.slice(10-20);
 
-            await feed.instance().insertTuples(null, subsetKeys);
+            await feed.instance().insertTuples({tuples: subsetKeys});
             expect(feed.state().tuples.length).toBe(60);
 
-            await feed.instance().insertTuples(null, [subsetKeys[1], {key: 'fakeKey-1'}, {key: 'fakeKey-2'}]);
+            await feed.instance().insertTuples({
+                tuples: [subsetKeys[1], {key: 'fakeKey-1'}, {key: 'fakeKey-2'}]
+            });
             expect(feed.state().tuples.length).toBe(62);
 
             expect(feed.state().tuples[60]).toStrictEqual({key: 'fakeKey-1'});
             expect(feed.state().tuples[61]).toStrictEqual({key: 'fakeKey-2'});
 
-            await feed.instance().insertTuples(null, [{key: 'fakeKey-3'}], 10);
+            await feed.instance().insertTuples({tuples: [{key: 'fakeKey-3'}], index: 10});
             expect(feed.state().tuples.length).toBe(63);
 
             expect(feed.state().tuples[10]).toStrictEqual({key: 'fakeKey-3'});

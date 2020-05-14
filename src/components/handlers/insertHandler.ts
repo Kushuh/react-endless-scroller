@@ -5,9 +5,9 @@ const insertHandler: (newTuples: Array<ApiResult>, state: State, index?: number)
     (newTuples: Array<ApiResult>, state: State, index?: number) => {
         const {tuples} = state;
         const filteredTuples = tuples.filter(x => !newTuples.find(y => y.key === x.key));
-        tuples.splice(index || tuples.length, 0, ...filteredTuples);
+        filteredTuples.splice(index || filteredTuples.length, 0, ...newTuples);
 
-        return ({tuples});
+        return ({tuples: filteredTuples});
     };
 
 export default insertHandler;
