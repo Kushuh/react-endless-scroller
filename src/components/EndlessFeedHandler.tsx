@@ -30,7 +30,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      *
      * @param props
      */
-    constructor(props) {
+    constructor(props: Props) {
         super(props);
 
         if (isDevENV) {
@@ -148,7 +148,8 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      *
      * @param params
      */
-    mutateState: (params) => Promise<void> = (params?: PartialState) => setStateAsync(this, params || defaultState);
+    mutateState: (params?: PartialState) => Promise<void> =
+        (params?: PartialState) => setStateAsync(this, params || defaultState);
 
     /**
      * Reset tuples and reload the wall.
@@ -166,7 +167,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      * @param {string} direction - backward or forward
      * @param {React.RefObject<HTMLElement>} scrollElement
      */
-    loadPacket: (direction, scrollElement) => Promise<void> =
+    loadPacket: (direction: string, scrollElement?: React.RefObject<HTMLElement>) => Promise<void> =
         (direction: string, scrollElement?: React.RefObject<HTMLElement>) => new Promise(
             async (resolve, reject) => {
                 this.setState({loading: true});
@@ -228,7 +229,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      *
      * @param event'
      */
-    onScroll: (event) => void = async (event: any) => {
+    onScroll: (event: any) => void = async (event: any) => {
         /**
          * The guard clause prevents multiple fetches at time.
          */
@@ -253,10 +254,11 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      * @param scrollElement
      * @param ids
      */
-    removeTuples: (scrollElement, ...ids) => void = async (scrollElement: any | null, ...ids: Array<string>) => {
-        await setStateAsync(this, removeHandler(ids, this.state));
-        if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
-    };
+    removeTuples: (scrollElement: any | null, ...ids: Array<string>) => void =
+        async (scrollElement: any | null, ...ids: Array<string>) => {
+            await setStateAsync(this, removeHandler(ids, this.state));
+            if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
+        };
 
     /**
      * Dynamically add loaded content to list.
@@ -265,7 +267,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
      * @param tuples
      * @param index
      */
-    insertTuples: (scrollElement, tuples, index) => void =
+    insertTuples: (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => void =
         async (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => {
             await setStateAsync(this, insertHandler(tuples, this.state, index));
             if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));

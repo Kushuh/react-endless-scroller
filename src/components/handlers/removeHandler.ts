@@ -1,6 +1,6 @@
 import {State} from '../vars/handler.interfaces';
 
-const removeHandler: (ids, state) => Function = (ids: Array<string>, state: State) => {
+const removeHandler: (ids: Array<string>, state: State) => Function = (ids: Array<string>, state: State) => {
     const {tuples} = state;
     const filteredIds = ids.filter(x => tuples.find(y => y.key === x));
 

@@ -1,6 +1,6 @@
 import {ApiResult, PartialState, State} from '../vars/handler.interfaces';
 
-const insertHandler: (newTuples, state, index) => PartialState =
+const insertHandler: (newTuples: Array<ApiResult>, state: State, index?: number) => PartialState =
     (newTuples: Array<ApiResult>, state: State, index?: number) => {
         const {tuples} = state;
         const filteredTuples = newTuples.filter(x => !tuples.find(y => y.key === x.key));

@@ -16,7 +16,7 @@ if (isDevENV) {
  * @param {State} state
  * @param {Props} props
  */
-const loadPacketHandler: (direction, state, props) => Promise<PartialState> =
+const loadPacketHandler: (direction: string, state: State, props: Props) => Promise<PartialState> =
     (direction: string, state: State, props: Props) => new Promise(
         async (resolve, reject) => {
             let {queryParams, packetSize, loadSize, inRushLoad, inRushLoadSize} = props;

@@ -1,7 +1,7 @@
 import {PartialProps, PartialState} from '../vars/handler.interfaces';
 import {directions} from '../vars/defaults';
 
-const scrollHandler: (s, p, o) => string | null =
+const scrollHandler: (state: PartialState, props: PartialProps, event: any) => string | null =
     (state: PartialState, props: PartialProps, event: any) => {
         const {flags: {endOfResults, beginningOfResults}} = state;
         const {loadThreshold} = props;
