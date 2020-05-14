@@ -1,4 +1,4 @@
-import {PartialProps, PartialState} from '../vars/handler.interfaces';
+import {PartialProps, PartialState} from '../typings/components/handler.typings';
 import {directions} from '../vars/defaults';
 
 const scrollHandler: (state: PartialState, props: PartialProps, event: any) => string | null =

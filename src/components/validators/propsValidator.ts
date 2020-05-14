@@ -1,4 +1,4 @@
-import {PartialProps} from '../vars/handler.interfaces';
+import {PartialProps} from '../typings/components/handler.typings';
 import errors from '../vars/errors';
 import tuplesValidator from "./tuplesValidator";
 

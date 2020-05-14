@@ -135,7 +135,7 @@ describe(
             feed.setProps({inRushLoad: false});
             expect(feed.props().inRushLoad).toBeFalsy();
 
-            await feed.instance().search();
+            await feed.instance().feed();
             expect(mutateSpy).toHaveBeenCalled();
             expect(feed.state().tuples.length).toBe(30);
         });

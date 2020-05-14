@@ -1,4 +1,4 @@
-import {State} from '../vars/handler.interfaces';
+import {State} from '../typings/components/handler.typings';
 
 const removeHandler: (ids: Array<string>, state: State) => Function = (ids: Array<string>, state: State) => {
     const {tuples} = state;

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {ApiParams, ApiResults, Init, LoadThreshold} from './handler.interfaces';
+import {Init, LoadThreshold} from './handler.typings';
+import {ApiParams, ApiResults} from '../externalHandlers/api.typings';
 
 interface Props {
     children?: React.ReactNode | React.ReactNodeArray | null,

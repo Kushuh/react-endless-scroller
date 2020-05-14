@@ -1,4 +1,4 @@
-import {PartialState, State} from '../../vars/handler.interfaces';
+import {PartialState, State} from '../../typings/components/handler.typings';
 import {expect} from '@jest/globals';
 import errors from '../../vars/errors';
 

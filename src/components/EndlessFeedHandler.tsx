@@ -1,11 +1,13 @@
 import React from 'react';
 import {setStateAsync, addPropsToChildren} from 'kushuh-react-utils';
 import {defaultState, directions} from './vars/defaults';
-import {ApiResult, PartialState, Props, State} from './vars/handler.interfaces';
+import {PartialState, Props, State} from './typings/components/handler.typings';
+import {ApiResult} from './typings/externalHandlers/api.typings';
 import loadPacketHandler from './handlers/loadPacketHandler';
 import scrollHandler from './handlers/scrollHandler';
 import removeHandler from './handlers/removeHandler';
 import insertHandler from './handlers/insertHandler';
+import {MutatorsOptions} from './typings/externalHandlers/mutators.typing';
 
 let propsValidator;
 const isDevENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
@@ -154,11 +156,16 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     /**
      * Reset tuples and reload the wall.
      */
-    search: () => Promise<void> = () => new Promise(async resolve => {
+    feed: () => Promise<void> = () => new Promise(async resolve => {
         await this.mutateState(null);
         await this.loadPacket(directions.forward, null);
         resolve();
     });
+
+    /**
+     * Backward compatibility.
+     */
+    search = this.feed;
 
     /**
      * Load a packet from the dataset when needed. Direction indicate from which limit to load the packet, and also
@@ -251,10 +258,24 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     /**
      * Dynamically remove loaded content from list.
      *
+     * @param params
+     */
+    removeTuples: (params: MutatorsOptions) => void =
+        async (params: MutatorsOptions) => {
+            await setStateAsync(this, removeHandler(params.ids, this.state));
+            if (params.scrollElement != null) {
+                params.scrollElement.dispatchEvent(new CustomEvent('scroll'));
+            }
+        };
+
+    /**
+     * Backward compatibility.
+     *
      * @param scrollElement
      * @param ids
+     * @private
      */
-    removeTuples: (scrollElement: any | null, ...ids: Array<string>) => void =
+    _removeTuples: (scrollElement: any | null, ...ids: Array<string>) => void =
         async (scrollElement: any | null, ...ids: Array<string>) => {
             await setStateAsync(this, removeHandler(ids, this.state));
             if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
@@ -263,11 +284,17 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
     /**
      * Dynamically add loaded content to list.
      *
-     * @param scrollElement
-     * @param tuples
-     * @param index
+     * @param params
      */
-    insertTuples: (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => void =
+    insertTuples: (params: MutatorsOptions) => void =
+        async (params: MutatorsOptions) => {
+            await setStateAsync(this, insertHandler(params.tuples, this.state, params.index));
+            if (params.scrollElement != null) {
+                params.scrollElement.dispatchEvent(new CustomEvent('scroll'));
+            }
+        };
+
+    _insertTuples: (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => void =
         async (scrollElement: any | null, tuples: Array<ApiResult>, index: number) => {
             await setStateAsync(this, insertHandler(tuples, this.state, index));
             if (scrollElement != null) scrollElement.dispatchEvent(new CustomEvent('scroll'));
@@ -292,7 +319,7 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
                     removeTuples: this.removeTuples,
                     insertTuples: this.insertTuples,
                     onScroll: this.onScroll,
-                    search: this.search,
+                    search: this.feed,
                     params: {...this.state}
                 }
             }

@@ -1,4 +1,4 @@
-import {PartialState} from './handler.interfaces';
+import {PartialState} from '../typings/components/handler.typings';
 
 const defaultState: PartialState = {
     tuples: [],

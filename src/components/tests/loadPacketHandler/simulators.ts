@@ -1,4 +1,4 @@
-import {ApiParams, ApiResult, ApiResults} from '../../vars/handler.interfaces';
+import {ApiParams, ApiResult, ApiResults} from '../../typings/externalHandlers/api.typings';
 import errors from '../../vars/errors';
 
 const dataset: Array<ApiResult | null> = [];

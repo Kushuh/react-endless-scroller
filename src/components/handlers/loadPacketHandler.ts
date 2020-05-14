@@ -1,4 +1,5 @@
-import {Boundaries, PartialState, Props, State} from '../vars/handler.interfaces';
+import {PartialState, Props, State} from '../typings/components/handler.typings';
+import {Boundaries} from '../typings/externalHandlers/api.typings';
 import {defaultProps, directions} from '../vars/defaults';
 import errors from '../vars/errors';
 

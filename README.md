@@ -48,7 +48,7 @@ It comes in two components : a high level one, with some pre-built visual handle
     + [Outputs (props)](#outputs-props)
         + [feed.params](#endlessscrollparams)
         + [feed.onScroll](#endlessscrollonscroll)
-        + [feed.search](#endlessscrollsearch)
+        + [feed.feed](#endlessscrollsearch)
         + [⚠️ feed.mutateState](#-endlessscrollmutatestate)
         + [Content mutators](#content-mutators)
             + [feed.removeTuples](#endlessscrollremovetuples)
@@ -180,7 +180,7 @@ The component will handle the network calls, based on the current scroll positio
 
 **(2)** Be careful this should be used only for development purposes, as it can harm both memory and performances with large datasets.
 
-**(3)** If you use the deferLaunch flag, you'll have to trigger the first fetch manually. This can be done using the `feed.search()` function, passed to the container props.
+**(3)** If you use the deferLaunch flag, you'll have to trigger the first fetch manually. This can be done using the `feed.feed()` function, passed to the container props.
 
 **(4)** By default, the component will wait for the user to scroll to one of the page limits to trigger fetch (either backward or forward). However, for a smoother user experience, and a better "infinite" sensation, it is advised to add larger thresholds. Thus, fetch will be called earlier and lower the "wait for load" impression.<br/>
 Larger thresholds means new content will always be loaded before user reach the limit, until none is left.
@@ -242,7 +242,7 @@ Scroll handler to add to the scrollable container. It is responsible for trigger
 onScroll(event);
 ```
 
-#### feed.search
+#### feed.feed
 
 Search function. A search will reset the component state (mutateState with empty parameters), then repopulate tuples with an updated fetch.
 
@@ -294,14 +294,17 @@ please use them along with `mutateState` or `search` methods.
 
 Mutators behavior can be implemented with `mutateState`, however they take some extra care to handle duplicate keys and data integrity. If any change needs to be made to the feed, they should be prefered.
 
+If some tuple occurs multiple time after mutation, it will not throw an error and replace the old tuple.
+
 #### feed.removeTuples
 
 Remove a list of tuples from the current list. Tuples are represented by their unique key attribute.
 
 ```jsx
-// scrollableElementRef is optional. If omitted, set it to null or undefined,
-// as the first parameter will automatically be attributed to it.
-removeTuples(scrollableElementRef, tupleKey1, tupleKey2, ...);
+removeTuples({
+  scrollElement, // Optional parameter to refresh scroll status after removal.
+  ids // An array of tuple ids, refering to their unique key attribute.
+});
 ```
 
 ℹ️ scrollableElementRef force a refresh of the page status after the operation. It has to be a valid React ref.
@@ -311,11 +314,11 @@ removeTuples(scrollableElementRef, tupleKey1, tupleKey2, ...);
 Insert a list of tuples in the current list. New tuples have each to contain a unique key attribute. Index is optional and will by default append results to the current dataset.
 
 ```jsx
-// scrollableElementRef is optional. If omitted, set it to null or undefined,
-// as the first parameter will automatically be attributed to it.
-
-// Also tuples is an array this time, instead of a list of arguments.
-insertTuples(scrollableElementRef, tuples, index);
+insertTuples({
+  scrollableElementRef, // Optional parameter to refresh scroll status after insertion.
+  tuples, // An array of valid ApiResult objects to insert (any object with unique key attribute) 
+  index // Index to insert to. Append by default.
+});
 ```
 
 ℹ️ insert takes an extra index attribute, to tell the component where to insert the new tuples.

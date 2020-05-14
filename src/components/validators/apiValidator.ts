@@ -1,6 +1,6 @@
-import {ApiResults} from '../vars/handler.interfaces';
+import {ApiResults} from '../typings/externalHandlers/api.typings';
 import errors from '../vars/errors';
-import tuplesValidator from "./tuplesValidator";
+import tuplesValidator from './tuplesValidator';
 
 /**
  * Check if api returned a valid value.
