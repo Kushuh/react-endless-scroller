@@ -11,7 +11,7 @@
     "url": "https://github.com/Kushuh/react-endless-scroller"
   },
   "description": "A simple and intuitive infinite scroll component for React.",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "private": false,
   "dependencies": {
     "kushuh-react-utils": "^1.2.5",
