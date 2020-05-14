@@ -256,14 +256,14 @@ search();
 Mutate the parent state. If no parameters are being passed, it will reset the parent state with some default parameters.
 
 ```jsx
-// Update query params.
-mutateState({queryParams: someParams});
+// Force loading state.
+mutateState({loading: true});
 
-// Reset the state to a default state.
+// Reset the state to a default value.
 mutateState();
 ```
 
-Above are the parameters of the default state. Any absent parameter will remain untouched.
+Below are the parameters of the default state. Any absent parameter will remain untouched.
 
 ```jsx
 {
