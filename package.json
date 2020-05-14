@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "test-and-publish": "yarn test && yarn build && yarn publish",
-    "build": "rollup -c && tsc",
+    "build": "rm -rf ./build && rollup -c",
     "test": "jest"
   },
   "eslintConfig": {
