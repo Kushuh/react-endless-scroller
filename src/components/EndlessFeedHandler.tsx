@@ -45,6 +45,16 @@ class EndlessFeedHandler extends React.Component<Props, PartialState> {
                 )
             );
         }
+
+        this.errorHandler = this.errorHandler.bind(this);
+        this.mutateState = this.mutateState.bind(this);
+        this.feed = this.feed.bind(this);
+        this.loadPacket = this.loadPacket.bind(this);
+        this.onScroll = this.onScroll.bind(this);
+        this.removeTuples = this.removeTuples.bind(this);
+        this.insertTuples = this.insertTuples.bind(this);
+        this._removeTuples = this._removeTuples.bind(this);
+        this._insertTuples = this._insertTuples.bind(this);
     }
 
     componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<PartialState>, snapshot?: any) {
